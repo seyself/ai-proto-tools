@@ -1,0 +1,1 @@
+{"version":3,"file":"VoicevoxSpeech.d.ts","sourceRoot":"","sources":["../../../../../src/core/helpers/speech/VoicevoxSpeech.ts"],"names":[],"mappings":"AAIA,MAAM,CAAC,OAAO,OAAO,cAAc;IAEjC,YAAY,SAAgB,MAAM,YAAY;QAC5C,KAAK,CAAC,EAAE,MAAM,GAAG,MAAM,GAAG,SAAS,CAAA;KACpC,KAAG,OAAO,CAAC,MAAM,CAAC,CAIlB;IAED,YAAY,aAAoB,MAAM,YAAY,GAAG,KAAG,OAAO,CAAC,MAAM,CAAC,CAEtE;CACF"}
