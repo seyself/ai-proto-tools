@@ -1,0 +1,72 @@
+{
+  "name": "@seyself/ai-proto-tools",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/cjs/core/index.js",
+  "module": "./dist/esm/core/index.js",
+  "types": "./dist/esm/core/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/core/index.js",
+      "require": "./dist/cjs/core/index.js",
+      "types": "./dist/esm/core/index.d.ts"
+    },
+    "./core/*": {
+      "import": "./dist/esm/core/*.js",
+      "require": "./dist/cjs/core/*.js",
+      "types": "./dist/esm/core/*.d.ts"
+    },
+    "./vc/*": {
+      "import": "./dist/esm/vc/*.js",
+      "require": "./dist/cjs/vc/*.js",
+      "types": "./dist/esm/vc/*.d.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "watch": "tsc --watch",
+    "dev": "npm run build && node dist/core/index.js",
+    "test": "tsx test/index.ts",
+    "commit": "tsx src/vc/commit.ts",
+    "push": "tsx src/vc/push.ts",
+    "discard": "tsx src/vc/discard.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "@google/generative-ai": "^0.21.0",
+    "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
+    "axios": "^1.7.7",
+    "better-sqlite3": "^11.4.0",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "googleapis": "^144.0.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.41.0",
+    "mitt": "^3.0.1",
+    "ollama": "^0.5.9",
+    "openai": "^4.68.1",
+    "puppeteer": "^23.6.0",
+    "sqlite-vec": "^0.1.4-alpha.2",
+    "ts-node": "^10.9.2",
+    "universal-cookie": "^7.2.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.47.11",
+    "@microsoft/tsdoc": "^0.15.0",
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^20",
+    "eslint": "^8",
+    "minimatch": "^10.0.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
