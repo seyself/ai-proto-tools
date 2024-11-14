@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.writeAudioBuffer = exports.readFileToBase64 = exports.WebBrowser = exports.AzureSpeechRecognizer = exports.GoogleSearch = exports.KeyValueStorage = exports.vectorizeText = exports.VectorSearchStorage = exports.GoogleSearchFunction = exports.ToolsFunction = exports.VoicevoxSpeech = exports.StyleBertVIT2 = exports.OpenAISpeech = exports.OllamaChat = exports.MiiboChat = exports.GeminiChat = exports.ClaudeChat = exports.OpenAIChat = exports.MultiAgent = exports.AssistantHelper = exports.ChatHelper = exports.ToolsHelper = void 0;
+exports.writeAudioBuffer = exports.readFileToBase64 = exports.WebBrowser = exports.AzureSpeechRecognizer = exports.Feedly = exports.GoogleSearch = exports.KeyValueStorage = exports.vectorizeText = exports.VectorSearchStorage = exports.GoogleSearchFunction = exports.ToolsFunction = exports.VoicevoxSpeech = exports.StyleBertVIT2 = exports.OpenAISpeech = exports.OllamaChat = exports.MiiboChat = exports.GeminiChat = exports.ClaudeChat = exports.OpenAIChat = exports.MultiAgent = exports.AssistantHelper = exports.ChatHelper = exports.ToolsHelper = void 0;
 // Helpers
 var ToolsHelper_js_1 = require("./helpers/ToolsHelper.js");
 Object.defineProperty(exports, "ToolsHelper", { enumerable: true, get: function () { return __importDefault(ToolsHelper_js_1).default; } });
@@ -62,6 +62,8 @@ Object.defineProperty(exports, "KeyValueStorage", { enumerable: true, get: funct
 // Utils
 var GoogleSearch_js_1 = require("./services/GoogleSearch.js");
 Object.defineProperty(exports, "GoogleSearch", { enumerable: true, get: function () { return __importDefault(GoogleSearch_js_1).default; } });
+var Feedly_js_1 = require("./services/Feedly.js");
+Object.defineProperty(exports, "Feedly", { enumerable: true, get: function () { return __importDefault(Feedly_js_1).default; } });
 var AzureSpeechRecognizer_js_1 = require("./services/AzureSpeechRecognizer.js");
 Object.defineProperty(exports, "AzureSpeechRecognizer", { enumerable: true, get: function () { return __importDefault(AzureSpeechRecognizer_js_1).default; } });
 var WebBrowser_js_1 = require("./utils/WebBrowser.js");
