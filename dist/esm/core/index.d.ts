@@ -17,7 +17,7 @@ export { default as GoogleSearchFunction } from './functions/GoogleSearchFunctio
 export { default as VectorSearchStorage, vectorizeText } from './storages/VectorSearchStorage.js';
 export { default as KeyValueStorage } from './storages/KeyValueStorage.js';
 export { default as GoogleSearch } from './services/GoogleSearch.js';
-export { default as Feedly } from './services/Feedly.js';
+export { default as Feedly, type FeedlyEntry, type FeedlyResponse } from './services/Feedly.js';
 export { default as AzureSpeechRecognizer } from './services/AzureSpeechRecognizer.js';
 export { default as WebBrowser } from './utils/WebBrowser.js';
 export { readFileToBase64 } from './utils/readFileToBase64.js';

@@ -31,7 +31,7 @@ if (fs.existsSync(_tokenFile)) {
 
 const fingerprints = (fs.readFileSync(_fingerprintFile, 'utf8') || '').split('\n');
 
-interface FeedlyEntry {
+export interface FeedlyEntry {
   id: string;
   fingerprint: string;
   title: string;
@@ -44,7 +44,7 @@ interface FeedlyEntry {
   contentText: string;
 }
 
-interface FeedlyResponse {
+export interface FeedlyResponse {
   items: {
     id: string;
     fingerprint: string;

@@ -1,4 +1,4 @@
-interface FeedlyEntry {
+export interface FeedlyEntry {
     id: string;
     fingerprint: string;
     title: string;
@@ -9,6 +9,27 @@ interface FeedlyEntry {
     summary: string;
     content: string;
     contentText: string;
+}
+export interface FeedlyResponse {
+    items: {
+        id: string;
+        fingerprint: string;
+        title: string;
+        summary?: {
+            content: string;
+        };
+        fullContent?: string;
+        content?: {
+            content: string;
+        };
+        alternate?: Array<{
+            href: string;
+        }>;
+        canonicalUrl?: string;
+        originId?: string;
+        published: number;
+        keywords?: string[];
+    }[];
 }
 export default class Feedly {
     hasError: boolean;
@@ -21,5 +42,4 @@ export default class Feedly {
     getLatestFeed: (count?: number, newerThanMinutes?: number) => Promise<void>;
     markAsRead: (entryIds: string[]) => Promise<void>;
 }
-export {};
 //# sourceMappingURL=Feedly.d.ts.map
