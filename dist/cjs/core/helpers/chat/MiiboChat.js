@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
 const readFileToBase64_js_1 = require("../../utils/readFileToBase64.js");
+const AIModel_js_1 = require("../AIModel.js");
 dotenv.config();
 // 環境変数からAPI情報を取得
 const MIIBO_API_URL = 'https://api-mebo.dev/api';
@@ -54,7 +55,7 @@ class MiiboChat {
      * @param {string} [options.model='gpt-4o'] - 使用する AI モデル
      * @param {number} [options.max_tokens=4096] - 最大トークン数
      */
-    constructor(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -125,7 +126,7 @@ class MiiboChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'gpt-4o';
+        this.useModel = model || AIModel_js_1.AIModel.gpt_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;

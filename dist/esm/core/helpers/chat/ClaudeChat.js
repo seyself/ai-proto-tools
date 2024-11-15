@@ -1,12 +1,13 @@
 import * as dotenv from 'dotenv';
 import { Anthropic } from '@anthropic-ai/sdk';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
+import { AIModel } from '../AIModel.js';
 dotenv.config();
 const anthropic = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY,
 });
 export default class ClaudeChat {
-    constructor(options = { systemPrompt: null, model: 'claude-3-5-sonnet-20241022', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel.claude_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -86,7 +87,7 @@ export default class ClaudeChat {
             }
             try {
                 const visionResponse = await anthropic.messages.create({
-                    model: model || this.useModel || 'claude-3-opus-20240229',
+                    model: model || this.useModel || AIModel.claude_default,
                     max_tokens: this.maxTokens,
                     messages: [
                         {
@@ -110,7 +111,7 @@ export default class ClaudeChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'claude-3-5-sonnet-20241022';
+        this.useModel = model || AIModel.claude_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;

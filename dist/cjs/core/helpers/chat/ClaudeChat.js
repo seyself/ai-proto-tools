@@ -26,12 +26,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const sdk_1 = require("@anthropic-ai/sdk");
 const readFileToBase64_js_1 = require("../../utils/readFileToBase64.js");
+const AIModel_js_1 = require("../AIModel.js");
 dotenv.config();
 const anthropic = new sdk_1.Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY,
 });
 class ClaudeChat {
-    constructor(options = { systemPrompt: null, model: 'claude-3-5-sonnet-20241022', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel_js_1.AIModel.claude_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -111,7 +112,7 @@ class ClaudeChat {
             }
             try {
                 const visionResponse = await anthropic.messages.create({
-                    model: model || this.useModel || 'claude-3-opus-20240229',
+                    model: model || this.useModel || AIModel_js_1.AIModel.claude_default,
                     max_tokens: this.maxTokens,
                     messages: [
                         {
@@ -135,7 +136,7 @@ class ClaudeChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'claude-3-5-sonnet-20241022';
+        this.useModel = model || AIModel_js_1.AIModel.claude_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;

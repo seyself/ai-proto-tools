@@ -5,6 +5,7 @@ import ToolsHelper from '../ToolsHelper.js';
 import { type IChatHelper, type ChatHelperOptions, type VisionFile } from '../IChatHelper.js';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
 import ollama from 'ollama';
+import { AIModel } from '../AIModel.js';
 
 dotenv.config();
 
@@ -36,11 +37,11 @@ export default class OllamaChat implements IChatHelper {
    * @param {string} [options.model='gpt-4o'] - 使用する AI モデル
    * @param {number} [options.max_tokens=4096] - 最大トークン数
    */
-  constructor(options:ChatHelperOptions = { systemPrompt: null, model: 'llama3', max_tokens: 4096, json: false, tools: null }) {
+  constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.ollama_default, max_tokens: 4096, json: false, tools: null }) {
     const { systemPrompt, model, max_tokens, json, tools } = options;
     
     this.systemPrompt = systemPrompt;
-    this.useModel = model || 'llama3';
+    this.useModel = model || AIModel.ollama_default;
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;

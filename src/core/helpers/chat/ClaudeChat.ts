@@ -6,6 +6,7 @@ import ToolsHelper from '../ToolsHelper.js';
 import { Anthropic } from '@anthropic-ai/sdk';
 import { type IChatHelper, type ChatHelperOptions, type VisionFile } from '../IChatHelper.js';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
+import { AIModel } from '../AIModel.js';
 
 dotenv.config();
 
@@ -21,11 +22,11 @@ export default class ClaudeChat implements IChatHelper {
   private json: boolean;
   private history: ChatCompletionMessageParam[] = [];
 
-  constructor(options:ChatHelperOptions = { systemPrompt: null, model: 'claude-3-5-sonnet-20241022', max_tokens: 4096, json: false, tools: null }) {
+  constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.claude_default, max_tokens: 4096, json: false, tools: null }) {
     const { systemPrompt, model, max_tokens, json, tools } = options;
 
     this.systemPrompt = systemPrompt;
-    this.useModel = model || 'claude-3-5-sonnet-20241022';
+    this.useModel = model || AIModel.claude_default;
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;
@@ -125,7 +126,7 @@ export default class ClaudeChat implements IChatHelper {
 
     try {
       const visionResponse = await anthropic.messages.create({
-        model: model || this.useModel || 'claude-3-opus-20240229',
+        model: model || this.useModel || AIModel.claude_default,
         max_tokens: this.maxTokens,
         messages: [
           {

@@ -5,6 +5,7 @@ import type { ChatCompletionMessageParam } from 'openai/resources/chat/completio
 import ToolsHelper from '../ToolsHelper.js';
 import { type IChatHelper, type ChatHelperOptions, type VisionFile } from '../IChatHelper.js';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
+import { AIModel } from '../AIModel.js';
 
 dotenv.config();
 
@@ -38,11 +39,11 @@ export default class OpenAIChat implements IChatHelper {
    * @param {string} [options.model='gpt-4o'] - 使用する AI モデル
    * @param {number} [options.max_tokens=4096] - 最大トークン数
    */
-  constructor(options:ChatHelperOptions = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+  constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
     const { systemPrompt, model, max_tokens, json, tools } = options;
     
     this.systemPrompt = systemPrompt;
-    this.useModel = model || 'gpt-4o';
+    this.useModel = model || AIModel.gpt_default;
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;
@@ -173,7 +174,7 @@ export default class OpenAIChat implements IChatHelper {
 
     try {
       const visionResponse = await openai.chat.completions.create({
-        model: model || this.useModel || "gpt-4o",
+        model: model || this.useModel || AIModel.gpt_default,
         max_tokens: this.maxTokens,
         messages: this.history,
       });

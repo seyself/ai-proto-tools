@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import OpenAI from 'openai';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
+import { AIModel } from '../AIModel.js';
 dotenv.config();
 const openai = new OpenAI();
 /**
@@ -23,7 +24,7 @@ export default class OpenAIChat {
      * @param {string} [options.model='gpt-4o'] - 使用する AI モデル
      * @param {number} [options.max_tokens=4096] - 最大トークン数
      */
-    constructor(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -133,7 +134,7 @@ export default class OpenAIChat {
             this.history.push({ role: "user", content: reqContent });
             try {
                 const visionResponse = await openai.chat.completions.create({
-                    model: model || this.useModel || "gpt-4o",
+                    model: model || this.useModel || AIModel.gpt_default,
                     max_tokens: this.maxTokens,
                     messages: this.history,
                 });
@@ -148,7 +149,7 @@ export default class OpenAIChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'gpt-4o';
+        this.useModel = model || AIModel.gpt_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;

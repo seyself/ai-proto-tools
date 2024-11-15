@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const openai_1 = __importDefault(require("openai"));
 const readFileToBase64_js_1 = require("../../utils/readFileToBase64.js");
+const AIModel_js_1 = require("../AIModel.js");
 dotenv.config();
 const openai = new openai_1.default();
 /**
@@ -51,7 +52,7 @@ class OpenAIChat {
      * @param {string} [options.model='gpt-4o'] - 使用する AI モデル
      * @param {number} [options.max_tokens=4096] - 最大トークン数
      */
-    constructor(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -161,7 +162,7 @@ class OpenAIChat {
             this.history.push({ role: "user", content: reqContent });
             try {
                 const visionResponse = await openai.chat.completions.create({
-                    model: model || this.useModel || "gpt-4o",
+                    model: model || this.useModel || AIModel_js_1.AIModel.gpt_default,
                     max_tokens: this.maxTokens,
                     messages: this.history,
                 });
@@ -176,7 +177,7 @@ class OpenAIChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'gpt-4o';
+        this.useModel = model || AIModel_js_1.AIModel.gpt_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;

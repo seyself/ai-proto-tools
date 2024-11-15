@@ -15,6 +15,7 @@ import {
 import { GoogleAIFileManager } from "@google/generative-ai/server";
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
 import { type IChatHelper, type ChatHelperOptions, type VisionFile } from '../IChatHelper.js';
+import { AIModel } from '../AIModel.js';
 
 
 dotenv.config();
@@ -69,11 +70,11 @@ export default class GeminiChat implements IChatHelper {
   private json: boolean;
   private history: any[] = [];
 
-  constructor(options:ChatHelperOptions = { systemPrompt: null, model: 'gemini-1.5-flash-002', max_tokens: 4096, json: false, tools: null }) {
+  constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.gemini_default, max_tokens: 4096, json: false, tools: null }) {
     const { systemPrompt, model, max_tokens, json, tools } = options;
 
     this.systemPrompt = systemPrompt;
-    this.useModel = model || 'gemini-1.5-flash-002';
+    this.useModel = model || AIModel.gemini_default;
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;
@@ -140,7 +141,7 @@ export default class GeminiChat implements IChatHelper {
     try {
       // gemini-pro-visionモデルのインスタンスを作成
       const visionModel = genAI.getGenerativeModel({ 
-        model: model || this.useModel || 'gemini-1.5-flash-002'
+        model: model || this.useModel || AIModel.gemini_default
       });
 
       const generationConfig = {

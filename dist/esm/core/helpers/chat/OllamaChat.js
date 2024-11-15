@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
 import ollama from 'ollama';
+import { AIModel } from '../AIModel.js';
 dotenv.config();
 /**
  * ChatHelper クラスは OpenAI の API を使用してチャット機能を提供します。
@@ -22,7 +23,7 @@ export default class OllamaChat {
      * @param {string} [options.model='gpt-4o'] - 使用する AI モデル
      * @param {number} [options.max_tokens=4096] - 最大トークン数
      */
-    constructor(options = { systemPrompt: null, model: 'llama3', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel.ollama_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -135,7 +136,7 @@ export default class OllamaChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'llama3';
+        this.useModel = model || AIModel.ollama_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;

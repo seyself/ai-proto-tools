@@ -27,6 +27,7 @@ const dotenv = __importStar(require("dotenv"));
 const generative_ai_1 = require("@google/generative-ai");
 const server_1 = require("@google/generative-ai/server");
 const readFileToBase64_js_1 = require("../../utils/readFileToBase64.js");
+const AIModel_js_1 = require("../AIModel.js");
 dotenv.config();
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new generative_ai_1.GoogleGenerativeAI(GEMINI_API_KEY);
@@ -66,7 +67,7 @@ async function uploadToGemini(filePath) {
     };
 }
 class GeminiChat {
-    constructor(options = { systemPrompt: null, model: 'gemini-1.5-flash-002', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gemini_default, max_tokens: 4096, json: false, tools: null }) {
         this.history = [];
         this.addUserMessage = (content) => {
             this.history.push({ role: 'user', content });
@@ -110,7 +111,7 @@ class GeminiChat {
             try {
                 // gemini-pro-visionモデルのインスタンスを作成
                 const visionModel = genAI.getGenerativeModel({
-                    model: model || this.useModel || 'gemini-1.5-flash-002'
+                    model: model || this.useModel || AIModel_js_1.AIModel.gemini_default
                 });
                 const generationConfig = {
                     temperature: 1,
@@ -153,7 +154,7 @@ class GeminiChat {
         };
         const { systemPrompt, model, max_tokens, json, tools } = options;
         this.systemPrompt = systemPrompt;
-        this.useModel = model || 'gemini-1.5-flash-002';
+        this.useModel = model || AIModel_js_1.AIModel.gemini_default;
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;
