@@ -17,8 +17,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.writeAudioBuffer = exports.readFileToBase64 = exports.WebBrowser = exports.AzureSpeechRecognizer = exports.Feedly = exports.GoogleSearch = exports.KeyValueStorage = exports.vectorizeText = exports.VectorSearchStorage = exports.GoogleSearchFunction = exports.ToolsFunction = exports.VoicevoxSpeech = exports.StyleBertVIT2 = exports.OpenAISpeech = exports.OllamaChat = exports.MiiboChat = exports.GeminiChat = exports.ClaudeChat = exports.OpenAIChat = exports.MultiAgent = exports.AssistantHelper = exports.ChatHelper = exports.ToolsHelper = void 0;
+exports.writeAudioBuffer = exports.readFileToBase64 = exports.WebBrowser = exports.AzureSpeechRecognizer = exports.Feedly = exports.GoogleSearch = exports.KeyValueStorage = exports.vectorizeText = exports.VectorSearchStorage = exports.GoogleSearchFunction = exports.ToolsFunction = exports.VoicevoxSpeech = exports.StyleBertVIT2 = exports.OpenAISpeech = exports.OllamaChat = exports.MiiboChat = exports.GeminiChat = exports.ClaudeChat = exports.OpenAIChat = exports.MultiAgent = exports.AssistantHelper = exports.ChatHelper = exports.ToolsHelper = exports.AIModel = void 0;
 // Helpers
+var AIModel_js_1 = require("./helpers/AIModel.js");
+Object.defineProperty(exports, "AIModel", { enumerable: true, get: function () { return AIModel_js_1.AIModel; } });
 var ToolsHelper_js_1 = require("./helpers/ToolsHelper.js");
 Object.defineProperty(exports, "ToolsHelper", { enumerable: true, get: function () { return __importDefault(ToolsHelper_js_1).default; } });
 __exportStar(require("./helpers/ToolsHelper.js"), exports);
