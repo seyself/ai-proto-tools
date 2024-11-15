@@ -109,7 +109,9 @@ export default class GeminiChat implements IChatHelper {
       parts: this.history,
       generationConfig: {
         maxOutputTokens: this.maxTokens,
-        temperature: 0.7,
+        temperature: 1,
+        topP: 0.95,
+        responseMimeType: "text/plain",
       }
     };
 
@@ -124,7 +126,10 @@ export default class GeminiChat implements IChatHelper {
     // }
 
     try {
-      const genModel = genAI.getGenerativeModel({ model: model || this.useModel });
+      const genModel = genAI.getGenerativeModel({ 
+        model: model || this.useModel || AIModel.gemini_default,
+        systemInstruction: systemPrompt || this.systemPrompt || '',
+      });
       const chat: any = await genModel.startChat(data);
       const result: any = await chat.sendMessage(userPrompt);
       const response: any = await result.response;
@@ -137,11 +142,12 @@ export default class GeminiChat implements IChatHelper {
   }
 
   public vision = async (text: string, files: string[], options?: ChatHelperOptions): Promise<string | null> => {
-    const { model } = options || {};
+    const { systemPrompt, model, max_tokens, json, tools } = options || {};
     try {
       // gemini-pro-visionモデルのインスタンスを作成
       const visionModel = genAI.getGenerativeModel({ 
-        model: model || this.useModel || AIModel.gemini_default
+        model: model || this.useModel || AIModel.gemini_default,
+        systemInstruction: systemPrompt || this.systemPrompt || '',
       });
 
       const generationConfig = {

@@ -84,7 +84,9 @@ class GeminiChat {
                 parts: this.history,
                 generationConfig: {
                     maxOutputTokens: this.maxTokens,
-                    temperature: 0.7,
+                    temperature: 1,
+                    topP: 0.95,
+                    responseMimeType: "text/plain",
                 }
             };
             // if (json) {
@@ -94,7 +96,10 @@ class GeminiChat {
             //   data.tools = tools.getDefineToolObjects() as Anthropic.Messages.Tool[];
             // }
             try {
-                const genModel = genAI.getGenerativeModel({ model: model || this.useModel });
+                const genModel = genAI.getGenerativeModel({
+                    model: model || this.useModel || AIModel_js_1.AIModel.gemini_default,
+                    systemInstruction: systemPrompt || this.systemPrompt || '',
+                });
                 const chat = await genModel.startChat(data);
                 const result = await chat.sendMessage(userPrompt);
                 const response = await result.response;
@@ -107,11 +112,12 @@ class GeminiChat {
             return null;
         };
         this.vision = async (text, files, options) => {
-            const { model } = options || {};
+            const { systemPrompt, model, max_tokens, json, tools } = options || {};
             try {
                 // gemini-pro-visionモデルのインスタンスを作成
                 const visionModel = genAI.getGenerativeModel({
-                    model: model || this.useModel || AIModel_js_1.AIModel.gemini_default
+                    model: model || this.useModel || AIModel_js_1.AIModel.gemini_default,
+                    systemInstruction: systemPrompt || this.systemPrompt || '',
                 });
                 const generationConfig = {
                     temperature: 1,
