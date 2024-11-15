@@ -1,7 +1,7 @@
 import { type IChatHelper, type ChatHelperOptions } from '../IChatHelper.js';
 export default class ClaudeChat implements IChatHelper {
     private systemPrompt;
-    private useModel;
+    readonly useModel: string;
     private maxTokens;
     private tools;
     private json;

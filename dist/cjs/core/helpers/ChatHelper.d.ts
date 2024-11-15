@@ -12,6 +12,7 @@ import { type IChatHelper, type ChatHelperOptions } from './IChatHelper.js';
  * const response = await chatHelper.send("こんにちは");
  */
 export default class ChatHelper implements IChatHelper {
+    get useModel(): string;
     private chat;
     static Create(options?: ChatHelperOptions): ChatHelper;
     static ChatGPT(options?: ChatHelperOptions): ChatHelper;

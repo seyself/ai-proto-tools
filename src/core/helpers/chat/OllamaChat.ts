@@ -24,7 +24,7 @@ dotenv.config();
 export default class OllamaChat implements IChatHelper {
 
   private systemPrompt: string | null | undefined;
-  private useModel: string;
+  readonly useModel: string;
   private maxTokens: number;
   private tools: ToolsHelper | null;
   private json: boolean;

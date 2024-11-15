@@ -27,7 +27,7 @@ export default class OpenAIChat implements IChatHelper {
 
   public static enableLog = false;
   private systemPrompt: string | null | undefined;
-  private useModel: string;
+  readonly useModel: string;
   private maxTokens: number;
   private tools: ToolsHelper | null;
   private json: boolean;

@@ -14,7 +14,7 @@ import { type IChatHelper, type ChatHelperOptions } from '../IChatHelper.js';
 export default class OpenAIChat implements IChatHelper {
     static enableLog: boolean;
     private systemPrompt;
-    private useModel;
+    readonly useModel: string;
     private maxTokens;
     private tools;
     private json;

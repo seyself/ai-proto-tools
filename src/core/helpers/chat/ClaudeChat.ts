@@ -16,7 +16,7 @@ const anthropic = new Anthropic({
 
 export default class ClaudeChat implements IChatHelper {
   private systemPrompt: string | null | undefined;
-  private useModel: string;
+  readonly useModel: string;
   private maxTokens: number;
   private tools: ToolsHelper | null;
   private json: boolean;

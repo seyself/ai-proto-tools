@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 import ToolsHelper from './ToolsHelper.js';
 import { type IChatHelper, type ChatHelperOptions, type VisionFile } from './IChatHelper.js';
+import { AIModel } from './AIModel.js';
 import OpenAIChat from './chat/OpenAIChat.js';
 import ClaudeChat from './chat/ClaudeChat.js';
 import GeminiChat from './chat/GeminiChat.js';
@@ -25,10 +26,14 @@ dotenv.config();
  */
 export default class ChatHelper implements IChatHelper {
   
+  get useModel(): string {
+    return this.chat?.useModel || '';
+  }
+
   private chat: IChatHelper;
 
-  public static Create(options: ChatHelperOptions = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
-    const model = options.model || 'gpt-4o-mini';
+  public static Create(options: ChatHelperOptions = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
+    const model = options.model || AIModel.gpt_default;
     
     if (model.startsWith('gpt-') || model.startsWith('o1-')) {
       return new ChatHelper(new OpenAIChat(options));
@@ -40,28 +45,28 @@ export default class ChatHelper implements IChatHelper {
     return new ChatHelper(new OllamaChat(options));
   }
 
-  public static ChatGPT(options: ChatHelperOptions = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+  public static ChatGPT(options: ChatHelperOptions = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
     return new ChatHelper(new OpenAIChat(options));
   }
 
-  public static Claude(options: ChatHelperOptions = { systemPrompt: null, model: 'claude-3-5-sonnet-20241022', max_tokens: 4096, json: false, tools: null }) {
+  public static Claude(options: ChatHelperOptions = { systemPrompt: null, model: AIModel.claude_default, max_tokens: 4096, json: false, tools: null }) {
     return new ChatHelper(new ClaudeChat(options));
   }
 
-  public static Gemini(options: ChatHelperOptions = { systemPrompt: null, model: 'gemini-1.5-pro-002', max_tokens: 2000000, json: false, tools: null }) {
+  public static Gemini(options: ChatHelperOptions = { systemPrompt: null, model: AIModel.gemini_default, max_tokens: 2000000, json: false, tools: null }) {
     return new ChatHelper(new GeminiChat(options));
   }
   
-  public static Ollama(options: ChatHelperOptions = { systemPrompt: null, model: 'llama3', max_tokens: 2000000, json: false, tools: null }) {
+  public static Ollama(options: ChatHelperOptions = { systemPrompt: null, model: AIModel.ollama_default, max_tokens: 2000000, json: false, tools: null }) {
     return new ChatHelper(new OllamaChat(options));
   }
 
-  public static Miibo(options: ChatHelperOptions = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+  public static Miibo(options: ChatHelperOptions = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
     return new ChatHelper(new MiiboChat(options));
   }
   
 
-  constructor(options: ChatHelperOptions | IChatHelper = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+  constructor(options: ChatHelperOptions | IChatHelper = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
     this.chat = isChatHelper(options) ? options : new OpenAIChat(options);
   }
 

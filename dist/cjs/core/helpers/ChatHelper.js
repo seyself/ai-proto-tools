@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
+const AIModel_js_1 = require("./AIModel.js");
 const OpenAIChat_js_1 = __importDefault(require("./chat/OpenAIChat.js"));
 const ClaudeChat_js_1 = __importDefault(require("./chat/ClaudeChat.js"));
 const GeminiChat_js_1 = __importDefault(require("./chat/GeminiChat.js"));
@@ -46,8 +47,11 @@ dotenv.config();
  * const response = await chatHelper.send("こんにちは");
  */
 class ChatHelper {
-    static Create(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
-        const model = options.model || 'gpt-4o-mini';
+    get useModel() {
+        return this.chat?.useModel || '';
+    }
+    static Create(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
+        const model = options.model || AIModel_js_1.AIModel.gpt_default;
         if (model.startsWith('gpt-') || model.startsWith('o1-')) {
             return new ChatHelper(new OpenAIChat_js_1.default(options));
         }
@@ -59,22 +63,22 @@ class ChatHelper {
         }
         return new ChatHelper(new OllamaChat_js_1.default(options));
     }
-    static ChatGPT(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+    static ChatGPT(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         return new ChatHelper(new OpenAIChat_js_1.default(options));
     }
-    static Claude(options = { systemPrompt: null, model: 'claude-3-5-sonnet-20241022', max_tokens: 4096, json: false, tools: null }) {
+    static Claude(options = { systemPrompt: null, model: AIModel_js_1.AIModel.claude_default, max_tokens: 4096, json: false, tools: null }) {
         return new ChatHelper(new ClaudeChat_js_1.default(options));
     }
-    static Gemini(options = { systemPrompt: null, model: 'gemini-1.5-pro-002', max_tokens: 2000000, json: false, tools: null }) {
+    static Gemini(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gemini_default, max_tokens: 2000000, json: false, tools: null }) {
         return new ChatHelper(new GeminiChat_js_1.default(options));
     }
-    static Ollama(options = { systemPrompt: null, model: 'llama3', max_tokens: 2000000, json: false, tools: null }) {
+    static Ollama(options = { systemPrompt: null, model: AIModel_js_1.AIModel.ollama_default, max_tokens: 2000000, json: false, tools: null }) {
         return new ChatHelper(new OllamaChat_js_1.default(options));
     }
-    static Miibo(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+    static Miibo(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         return new ChatHelper(new MiiboChat_js_1.default(options));
     }
-    constructor(options = { systemPrompt: null, model: 'gpt-4o', max_tokens: 4096, json: false, tools: null }) {
+    constructor(options = { systemPrompt: null, model: AIModel_js_1.AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         this.addUserMessage = (content) => {
             this.chat.addUserMessage(content);
         };

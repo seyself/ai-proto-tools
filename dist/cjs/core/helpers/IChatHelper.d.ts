@@ -1,5 +1,6 @@
 import ToolsHelper from './ToolsHelper.js';
 export interface IChatHelper {
+    readonly useModel: string;
     /** チャット履歴をクリアします */
     clearHistory(): void;
     /** ユーザーメッセージを履歴に追加します */

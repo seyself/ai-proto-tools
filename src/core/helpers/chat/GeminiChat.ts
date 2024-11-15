@@ -64,7 +64,7 @@ async function uploadToGemini(filePath: string) {
 
 export default class GeminiChat implements IChatHelper {
   private systemPrompt: string | null | undefined;
-  private useModel: string;
+  readonly useModel: string;
   private maxTokens: number;
   private tools: ToolsHelper | null;
   private json: boolean;

@@ -32,7 +32,7 @@ const MIIBO_AGENT_ID = process.env.MIIBO_AGENT_ID;
 export default class MiiboChat implements IChatHelper {
 
   private systemPrompt: string | null | undefined;
-  private useModel: string;
+  readonly useModel: string;
   private maxTokens: number;
   private tools: ToolsHelper | null;
   private json: boolean;
