@@ -92,7 +92,8 @@ class OpenAIChat {
             }
             try {
                 const response = await openai.chat.completions.create(data);
-                console.log('API >> response >>>', response);
+                if (OpenAIChat.enableLog)
+                    console.log('API >> response >>>', response);
                 if ('choices' in response && response.choices.length > 0) {
                     const content = response.choices[0]?.message?.content;
                     if (content) {
@@ -190,4 +191,5 @@ class OpenAIChat {
         }
     }
 }
+OpenAIChat.enableLog = false;
 exports.default = OpenAIChat;

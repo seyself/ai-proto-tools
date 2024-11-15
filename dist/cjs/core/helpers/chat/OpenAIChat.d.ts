@@ -12,6 +12,7 @@ import { type IChatHelper, type ChatHelperOptions } from '../IChatHelper.js';
  * const response = await chatHelper.send("こんにちは");
  */
 export default class OpenAIChat implements IChatHelper {
+    static enableLog: boolean;
     private systemPrompt;
     private useModel;
     private maxTokens;

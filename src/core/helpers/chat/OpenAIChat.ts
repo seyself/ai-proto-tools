@@ -25,6 +25,7 @@ const openai = new OpenAI();
  */
 export default class OpenAIChat implements IChatHelper {
 
+  public static enableLog = false;
   private systemPrompt: string | null | undefined;
   private useModel: string;
   private maxTokens: number;
@@ -104,7 +105,7 @@ export default class OpenAIChat implements IChatHelper {
 
     try {
       const response = await openai.chat.completions.create(data);
-      console.log('API >> response >>>', response);
+      if (OpenAIChat.enableLog) console.log('API >> response >>>', response);
       if ('choices' in response && response.choices.length > 0) {
         const content = response.choices[0]?.message?.content;
         if (content) {
