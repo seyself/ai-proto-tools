@@ -170,6 +170,8 @@ class WebBrowser {
                     }
                     result.title = pageTitle;
                     result.content = text;
+                    result.html = content;
+                    result.htmlParser = webPage;
                     result.url = url;
                     return result;
                 }

@@ -1,3 +1,4 @@
+import { type CheerioAPI } from 'cheerio';
 /**
  * ウェブページの内容を表すインターフェースです。
  * このインターフェースは、ウェブサイトの特定のページから抽出された情報を保持します。
@@ -10,6 +11,8 @@
 export interface WebPageContent {
     title?: string;
     content?: string;
+    html?: string;
+    htmlParser?: CheerioAPI;
     url?: string;
     data?: Buffer;
     base64?: string;

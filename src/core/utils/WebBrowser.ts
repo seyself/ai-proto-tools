@@ -16,6 +16,8 @@ dotenv.config();
 export interface WebPageContent {
   title?: string;
   content?: string;
+  html?: string;
+  htmlParser?: CheerioAPI;
   url?: string;
   data?: Buffer;
   base64?: string;
@@ -178,6 +180,8 @@ export default class WebBrowser {
 
         result.title = pageTitle;
         result.content = text;
+        result.html = content;
+        result.htmlParser = webPage;
         result.url = url;
         return result;
       }
