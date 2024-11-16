@@ -46,7 +46,7 @@ export default class StyleBertVIT2 {
   constructor(options?: StyleBertVIT2Options) {
     this.useModel = options?.model || StyleBertVIT2.Model.amitaro;
     this.speed = options?.speed || 1;
-    this.baseUrl = options?.baseUrl || 'http://localhost:5000';
+    this.baseUrl = options?.baseUrl || process.env.STYLE_BERT_VIT2_API_BASE_URL || 'http://localhost:5000';
     this.style = options?.style || StyleBertVIT2.Style.Neutral;
     this.styleWeight = options?.styleWeight || 1;
   }
