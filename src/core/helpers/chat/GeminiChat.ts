@@ -129,6 +129,8 @@ export default class GeminiChat implements IChatHelper {
       const genModel = genAI.getGenerativeModel({ 
         model: model || this.useModel || AIModel.gemini_default,
         systemInstruction: systemPrompt || this.systemPrompt || '',
+      }, {
+        apiVersion: options?.apiVersion || 'v1beta',
       });
       const chat: any = await genModel.startChat(data);
       const result: any = await chat.sendMessage(userPrompt);
@@ -148,6 +150,8 @@ export default class GeminiChat implements IChatHelper {
       const visionModel = genAI.getGenerativeModel({ 
         model: model || this.useModel || AIModel.gemini_default,
         systemInstruction: systemPrompt || this.systemPrompt || '',
+      }, {
+        apiVersion: options?.apiVersion || 'v1beta',
       });
 
       const generationConfig = {

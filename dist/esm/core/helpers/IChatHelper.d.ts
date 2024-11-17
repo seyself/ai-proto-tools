@@ -30,6 +30,7 @@ export interface IChatHelper {
 export interface ChatHelperOptions {
     systemPrompt?: string | null;
     model?: string | null;
+    apiVersion?: string | null;
     max_tokens?: number;
     json?: boolean;
     tools?: ToolsHelper | null;

@@ -99,6 +99,8 @@ class GeminiChat {
                 const genModel = genAI.getGenerativeModel({
                     model: model || this.useModel || AIModel_js_1.AIModel.gemini_default,
                     systemInstruction: systemPrompt || this.systemPrompt || '',
+                }, {
+                    apiVersion: options?.apiVersion || 'v1beta',
                 });
                 const chat = await genModel.startChat(data);
                 const result = await chat.sendMessage(userPrompt);
@@ -118,6 +120,8 @@ class GeminiChat {
                 const visionModel = genAI.getGenerativeModel({
                     model: model || this.useModel || AIModel_js_1.AIModel.gemini_default,
                     systemInstruction: systemPrompt || this.systemPrompt || '',
+                }, {
+                    apiVersion: options?.apiVersion || 'v1beta',
                 });
                 const generationConfig = {
                     temperature: 1,
