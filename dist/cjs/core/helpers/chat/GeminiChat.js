@@ -168,6 +168,7 @@ class GeminiChat {
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;
+        this.apiVersion = options?.apiVersion || null;
         this.clearHistory();
     }
     clearHistory() {

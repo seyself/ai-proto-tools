@@ -5,7 +5,7 @@ const customSearch = google.customsearch("v1");
 const googleApiKey = process.env.GOOGLE_API_KEY;
 const searchEngineID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 export default class GoogleSearch {
-    async search(keyword) {
+    async search(keyword, len = 5) {
         try {
             if (!keyword)
                 return 'no keyword';
@@ -13,7 +13,7 @@ export default class GoogleSearch {
                 auth: googleApiKey,
                 cx: searchEngineID,
                 q: keyword,
-                num: 5,
+                num: len,
                 dateRestrict: 'y1',
             });
             return result;

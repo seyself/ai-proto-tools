@@ -2,6 +2,7 @@ import { type IChatHelper, type ChatHelperOptions } from '../IChatHelper.js';
 export default class GeminiChat implements IChatHelper {
     private systemPrompt;
     readonly useModel: string;
+    readonly apiVersion: string | null | undefined;
     private maxTokens;
     private tools;
     private json;

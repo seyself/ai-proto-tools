@@ -10,14 +10,14 @@ const googleApiKey = process.env.GOOGLE_API_KEY;
 const searchEngineID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 
 export default class GoogleSearch {
-  public async search(keyword: string): Promise<GaxiosResponse | string | null> {
+  public async search(keyword: string, len: number = 5): Promise<GaxiosResponse | string | null> {
     try {
       if (!keyword) return 'no keyword';
       const result = await customSearch.cse.list({
         auth: googleApiKey,
         cx: searchEngineID,
         q: keyword,
-        num: 5,
+        num: len,
         dateRestrict: 'y1',
       });
       return result;
