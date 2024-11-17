@@ -10,17 +10,19 @@ const customSearch = googleapis_1.google.customsearch("v1");
 const googleApiKey = process.env.GOOGLE_API_KEY;
 const searchEngineID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 class GoogleSearch {
-    async search(keyword, len = 5) {
+    async search(keyword, len = 5, startIndex = 1) {
         try {
             if (!keyword)
                 return 'no keyword';
-            const result = await customSearch.cse.list({
+            const searchParams = {
                 auth: googleApiKey,
                 cx: searchEngineID,
                 q: keyword,
                 num: len,
                 dateRestrict: 'y1',
-            });
+                start: startIndex,
+            };
+            const result = await customSearch.cse.list(searchParams);
             return result;
         }
         catch (e) {
