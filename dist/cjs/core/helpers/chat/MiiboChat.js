@@ -85,7 +85,7 @@ class MiiboChat {
                 return content;
             }
             catch (error) {
-                console.error('メッセージ送信エラー:', error);
+                console.log('Error in MiiboChat:', error.message);
             }
             return null;
         };
@@ -120,7 +120,7 @@ class MiiboChat {
                 return content;
             }
             catch (error) {
-                console.error('メッセージ送信エラー:', error);
+                console.log('Error in vision processing:', error.message);
             }
             return null;
         };

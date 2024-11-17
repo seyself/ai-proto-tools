@@ -140,7 +140,7 @@ export default class GeminiChat implements IChatHelper {
       console.log('API >> response >>>', response);
       return response.text();
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.log('Error fetching data:', (error as Error).message);
     }
     return null;
   }
@@ -192,7 +192,7 @@ export default class GeminiChat implements IChatHelper {
       const resultText = result.response.text();
       return resultText;
     } catch (error) {
-      console.error('Error in vision processing:', error);
+      console.log('Error in vision processing:', (error as Error).message);
       return null;
     }
   }

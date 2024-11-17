@@ -48,7 +48,7 @@ export default class ClaudeChat {
                 return null;
             }
             catch (error) {
-                console.error('Error fetching data:', error);
+                console.log('Error fetching data:', error.message);
             }
             return null;
         };
@@ -105,7 +105,7 @@ export default class ClaudeChat {
                 return null;
             }
             catch (error) {
-                console.error('Error in vision processing:', error);
+                console.log('Error in vision processing:', error.message);
                 return null;
             }
         };

@@ -97,7 +97,7 @@ export default class MiiboChat implements IChatHelper {
       this.addAssistantMessage(content);
       return content;
     } catch (error) {
-      console.error('メッセージ送信エラー:', error);
+      console.log('Error in MiiboChat:', (error as Error).message);
     }
     return null;
   }
@@ -132,7 +132,7 @@ export default class MiiboChat implements IChatHelper {
       this.addAssistantMessage(content);
       return content;
     } catch (error) {
-      console.error('メッセージ送信エラー:', error);
+      console.log('Error in vision processing:', (error as Error).message);
     }
     return null;
   }

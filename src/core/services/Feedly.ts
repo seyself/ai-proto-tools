@@ -116,7 +116,7 @@ export default class Feedly
       this.hasError = true;
       this.error = error as Error;
       console.error('Feedly:: Token Refresh Failed');
-      console.error('Error fetching data:', error);
+      console.log('Error fetching data:', (error as Error).message);
     }
   }
 
@@ -242,7 +242,7 @@ export default class Feedly
     {
       this.hasError = true;
       this.error = error as Error;
-      console.error('Error fetching data:', error);
+      console.log('Error fetching data:', (error as Error).message);
     }
 
     if (this.hasError)
@@ -288,7 +288,7 @@ export default class Feedly
     {
       this.hasError = true;
       this.error = error as Error;
-      console.error('Error fetching data:', error);
+      console.log('Error fetching data:', (error as Error).message);
     }
   }
 }
