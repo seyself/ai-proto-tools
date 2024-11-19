@@ -35,6 +35,7 @@ export interface ChatHelperOptions {
     json?: boolean;
     tools?: ToolsHelper | null;
     outputLogs?: boolean;
+    host?: string | null;
 }
 /**
  * vision メソッドで使用する画像ファイルの形式

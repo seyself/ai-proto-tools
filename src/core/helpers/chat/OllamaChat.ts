@@ -4,7 +4,7 @@ import type { ChatCompletionMessageParam } from 'openai/resources/chat/completio
 import ToolsHelper from '../ToolsHelper.js';
 import { type IChatHelper, type ChatHelperOptions, type VisionFile } from '../IChatHelper.js';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
-import ollama from 'ollama';
+import { Ollama } from 'ollama';
 import { AIModel } from '../AIModel.js';
 
 dotenv.config();
@@ -30,6 +30,7 @@ export default class OllamaChat implements IChatHelper {
   private json: boolean;
   private history: ChatCompletionMessageParam[] = [];
   private outputLogs: boolean;
+  private ollama: Ollama;
 
   /**
    * ChatHelper のインスタンスを作成します。
@@ -39,8 +40,11 @@ export default class OllamaChat implements IChatHelper {
    * @param {number} [options.max_tokens=4096] - 最大トークン数
    */
   constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.ollama_default, max_tokens: 4096, json: false, tools: null }) {
-    const { systemPrompt, model, max_tokens, json, tools } = options;
+    const { systemPrompt, model, max_tokens, json, tools, host } = options;
     
+    this.ollama = new Ollama({
+      host: host || process.env.OLLAMA_API_BASE_URL || 'http://localhost:11434',
+    });
     this.systemPrompt = systemPrompt;
     this.useModel = model || AIModel.ollama_default;
     this.maxTokens = max_tokens || 4096;
@@ -103,7 +107,7 @@ export default class OllamaChat implements IChatHelper {
     }
 
     try {
-      const response: any = await ollama.chat(data);
+      const response: any = await this.ollama.chat(data);
       if (this.outputLogs || options?.outputLogs) console.log('API >> response >>>', response);
       if (response?.message?.content) {
         const content = response.message.content;
@@ -162,7 +166,7 @@ export default class OllamaChat implements IChatHelper {
     } as any);
 
     try {
-      const response = await (ollama as any).chat({
+      const response = await (this.ollama as any).chat({
         model: model || this.useModel || 'llava',
         messages: this.history as any[],
       });

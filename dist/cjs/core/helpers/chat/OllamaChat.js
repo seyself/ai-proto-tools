@@ -22,13 +22,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const readFileToBase64_js_1 = require("../../utils/readFileToBase64.js");
-const ollama_1 = __importDefault(require("ollama"));
+const ollama_1 = require("ollama");
 const AIModel_js_1 = require("../AIModel.js");
 dotenv.config();
 /**
@@ -90,7 +87,7 @@ class OllamaChat {
                 data.tools = tools.getDefineToolObjects();
             }
             try {
-                const response = await ollama_1.default.chat(data);
+                const response = await this.ollama.chat(data);
                 if (this.outputLogs || options?.outputLogs)
                     console.log('API >> response >>>', response);
                 if (response?.message?.content) {
@@ -150,7 +147,7 @@ class OllamaChat {
                 images: images,
             });
             try {
-                const response = await ollama_1.default.chat({
+                const response = await this.ollama.chat({
                     model: model || this.useModel || 'llava',
                     messages: this.history,
                 });
@@ -163,7 +160,10 @@ class OllamaChat {
                 return null;
             }
         };
-        const { systemPrompt, model, max_tokens, json, tools } = options;
+        const { systemPrompt, model, max_tokens, json, tools, host } = options;
+        this.ollama = new ollama_1.Ollama({
+            host: host || process.env.OLLAMA_API_BASE_URL || 'http://localhost:11434',
+        });
         this.systemPrompt = systemPrompt;
         this.useModel = model || AIModel_js_1.AIModel.ollama_default;
         this.maxTokens = max_tokens || 4096;

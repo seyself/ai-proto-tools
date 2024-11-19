@@ -43,6 +43,7 @@ export interface ChatHelperOptions {
   json?: boolean;
   tools?: ToolsHelper | null;
   outputLogs?: boolean;
+  host?: string | null;
 }
 
 /**

@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { readFileToBase64 } from '../../utils/readFileToBase64.js';
-import ollama from 'ollama';
+import { Ollama } from 'ollama';
 import { AIModel } from '../AIModel.js';
 dotenv.config();
 /**
@@ -62,7 +62,7 @@ export default class OllamaChat {
                 data.tools = tools.getDefineToolObjects();
             }
             try {
-                const response = await ollama.chat(data);
+                const response = await this.ollama.chat(data);
                 if (this.outputLogs || options?.outputLogs)
                     console.log('API >> response >>>', response);
                 if (response?.message?.content) {
@@ -122,7 +122,7 @@ export default class OllamaChat {
                 images: images,
             });
             try {
-                const response = await ollama.chat({
+                const response = await this.ollama.chat({
                     model: model || this.useModel || 'llava',
                     messages: this.history,
                 });
@@ -135,7 +135,10 @@ export default class OllamaChat {
                 return null;
             }
         };
-        const { systemPrompt, model, max_tokens, json, tools } = options;
+        const { systemPrompt, model, max_tokens, json, tools, host } = options;
+        this.ollama = new Ollama({
+            host: host || process.env.OLLAMA_API_BASE_URL || 'http://localhost:11434',
+        });
         this.systemPrompt = systemPrompt;
         this.useModel = model || AIModel.ollama_default;
         this.maxTokens = max_tokens || 4096;

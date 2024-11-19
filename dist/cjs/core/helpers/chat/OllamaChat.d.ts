@@ -19,6 +19,7 @@ export default class OllamaChat implements IChatHelper {
     private json;
     private history;
     private outputLogs;
+    private ollama;
     /**
      * ChatHelper のインスタンスを作成します。
      * @param {ChatHelperOptions} options - 設定オプション
