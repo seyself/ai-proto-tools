@@ -28,11 +28,12 @@ export enum AIModel {
 
   // Gemini
   gemini_default = "gemini-1.5-flash-8b",
-  gemini_latest = "gemini-exp-1114",
+  gemini_pro_latest = "gemini-1.5-pro",
   gemini_small_latest = "gemini-1.5-flash-8b",
   gemini_1_5_pro = "gemini-1.5-pro",
   gemini_1_5_pro_latest = "gemini-1.5-pro-latest",
   gemini_exp_1114 = "gemini-exp-1114",
+  gemini_exp_latest = "gemini-exp-1114",
   gemini_1_5_flash = "gemini-1.5-flash",
   gemini_1_5_flash_latest = "gemini-1.5-flash-latest",
   gemini_1_5_flash_8b = "gemini-1.5-flash-8b",

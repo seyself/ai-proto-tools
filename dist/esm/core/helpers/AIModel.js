@@ -26,11 +26,12 @@ export var AIModel;
     AIModel["claude_3_5_sonnet"] = "claude-3-5-sonnet-20241022";
     // Gemini
     AIModel["gemini_default"] = "gemini-1.5-flash-8b";
-    AIModel["gemini_latest"] = "gemini-exp-1114";
+    AIModel["gemini_pro_latest"] = "gemini-1.5-pro";
     AIModel["gemini_small_latest"] = "gemini-1.5-flash-8b";
     AIModel["gemini_1_5_pro"] = "gemini-1.5-pro";
     AIModel["gemini_1_5_pro_latest"] = "gemini-1.5-pro-latest";
     AIModel["gemini_exp_1114"] = "gemini-exp-1114";
+    AIModel["gemini_exp_latest"] = "gemini-exp-1114";
     AIModel["gemini_1_5_flash"] = "gemini-1.5-flash";
     AIModel["gemini_1_5_flash_latest"] = "gemini-1.5-flash-latest";
     AIModel["gemini_1_5_flash_8b"] = "gemini-1.5-flash-8b";
