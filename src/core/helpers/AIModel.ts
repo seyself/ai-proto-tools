@@ -31,11 +31,12 @@ export enum AIModel {
   gemini_latest = "gemini-exp-1114",
   gemini_small_latest = "gemini-1.5-flash-8b",
   gemini_1_5_pro = "gemini-1.5-pro",
-  gemini_1_5_pro_002 = "gemini-1.5-pro-002",
+  gemini_1_5_pro_latest = "gemini-1.5-pro-latest",
   gemini_exp_1114 = "gemini-exp-1114",
   gemini_1_5_flash = "gemini-1.5-flash",
-  gemini_1_5_flash_002 = "gemini-1.5-flash-002",
+  gemini_1_5_flash_latest = "gemini-1.5-flash-latest",
   gemini_1_5_flash_8b = "gemini-1.5-flash-8b",
+  gemini_1_5_flash_8b_latest = "gemini-1.5-flash-8b-latest",
 
   // Ollama
   ollama_default = "llama3",

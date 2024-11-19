@@ -32,11 +32,12 @@ var AIModel;
     AIModel["gemini_latest"] = "gemini-exp-1114";
     AIModel["gemini_small_latest"] = "gemini-1.5-flash-8b";
     AIModel["gemini_1_5_pro"] = "gemini-1.5-pro";
-    AIModel["gemini_1_5_pro_002"] = "gemini-1.5-pro-002";
+    AIModel["gemini_1_5_pro_latest"] = "gemini-1.5-pro-latest";
     AIModel["gemini_exp_1114"] = "gemini-exp-1114";
     AIModel["gemini_1_5_flash"] = "gemini-1.5-flash";
-    AIModel["gemini_1_5_flash_002"] = "gemini-1.5-flash-002";
+    AIModel["gemini_1_5_flash_latest"] = "gemini-1.5-flash-latest";
     AIModel["gemini_1_5_flash_8b"] = "gemini-1.5-flash-8b";
+    AIModel["gemini_1_5_flash_8b_latest"] = "gemini-1.5-flash-8b-latest";
     // Ollama
     AIModel["ollama_default"] = "llama3";
     AIModel["llama3"] = "llama3";
