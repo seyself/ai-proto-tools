@@ -42,6 +42,7 @@ export interface ChatHelperOptions {
   max_tokens?: number;
   json?: boolean;
   tools?: ToolsHelper | null;
+  outputLogs?: boolean;
 }
 
 /**

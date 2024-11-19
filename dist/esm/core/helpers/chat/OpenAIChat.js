@@ -16,7 +16,7 @@ const openai = new OpenAI();
  * });
  * const response = await chatHelper.send("こんにちは");
  */
-class OpenAIChat {
+export default class OpenAIChat {
     /**
      * ChatHelper のインスタンスを作成します。
      * @param {ChatHelperOptions} options - 設定オプション
@@ -64,7 +64,7 @@ class OpenAIChat {
             }
             try {
                 const response = await openai.chat.completions.create(data);
-                if (OpenAIChat.enableLog)
+                if (this.outputLogs || options?.outputLogs)
                     console.log('API >> response >>>', response);
                 if ('choices' in response && response.choices.length > 0) {
                     const content = response.choices[0]?.message?.content;
@@ -154,6 +154,7 @@ class OpenAIChat {
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;
+        this.outputLogs = options?.outputLogs || false;
         this.clearHistory();
     }
     clearHistory() {
@@ -163,5 +164,3 @@ class OpenAIChat {
         }
     }
 }
-OpenAIChat.enableLog = false;
-export default OpenAIChat;

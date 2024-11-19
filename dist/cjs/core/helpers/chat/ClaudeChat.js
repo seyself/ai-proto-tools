@@ -59,7 +59,8 @@ class ClaudeChat {
             // }
             try {
                 const response = await anthropic.messages.create(data);
-                console.log('API >> response >>>', response);
+                if (this.outputLogs || options?.outputLogs)
+                    console.log('API >> response >>>', response);
                 if ('content' in response && response.content.length > 0) {
                     const content = response.content[0];
                     if (content) {
@@ -140,6 +141,7 @@ class ClaudeChat {
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;
+        this.outputLogs = options?.outputLogs || false;
         this.clearHistory();
     }
     clearHistory() {

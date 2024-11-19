@@ -105,7 +105,8 @@ class GeminiChat {
                 const chat = await genModel.startChat(data);
                 const result = await chat.sendMessage(userPrompt);
                 const response = await result.response;
-                console.log('API >> response >>>', response);
+                if (this.outputLogs || options?.outputLogs)
+                    console.log('API >> response >>>', response);
                 return response.text();
             }
             catch (error) {
@@ -169,6 +170,7 @@ class GeminiChat {
         this.tools = tools || null;
         this.json = json || false;
         this.apiVersion = options?.apiVersion || null;
+        this.outputLogs = options?.outputLogs || false;
         this.clearHistory();
     }
     clearHistory() {

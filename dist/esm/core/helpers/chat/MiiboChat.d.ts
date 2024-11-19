@@ -19,6 +19,7 @@ export default class MiiboChat implements IChatHelper {
     private json;
     private history;
     private uid;
+    private outputLogs;
     /**
      * ChatHelper のインスタンスを作成します。
      * @param {ChatHelperOptions} options - 設定オプション

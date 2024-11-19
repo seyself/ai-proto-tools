@@ -21,6 +21,7 @@ export default class ClaudeChat implements IChatHelper {
   private tools: ToolsHelper | null;
   private json: boolean;
   private history: ChatCompletionMessageParam[] = [];
+  private outputLogs: boolean;
 
   constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.claude_default, max_tokens: 4096, json: false, tools: null }) {
     const { systemPrompt, model, max_tokens, json, tools } = options;
@@ -30,6 +31,7 @@ export default class ClaudeChat implements IChatHelper {
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;
+    this.outputLogs = options?.outputLogs || false;
 
     this.clearHistory();
   }
@@ -71,7 +73,7 @@ export default class ClaudeChat implements IChatHelper {
 
     try {
       const response: Anthropic.Messages.Message = await anthropic.messages.create(data);
-      console.log('API >> response >>>', response);
+      if (this.outputLogs || options?.outputLogs) console.log('API >> response >>>', response);
       if ('content' in response && response.content.length > 0) {
         const content: Anthropic.Messages.ContentBlock = response.content[0];
         if (content) {

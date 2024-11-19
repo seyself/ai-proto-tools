@@ -79,7 +79,8 @@ class MiiboChat {
                     }
                 });
                 const content = response?.data?.bestResponse?.utterance;
-                // console.log(response.data);
+                if (this.outputLogs || options?.outputLogs)
+                    console.log(response.data);
                 this.addUserMessage(userPrompt);
                 this.addAssistantMessage(content);
                 return content;
@@ -130,6 +131,7 @@ class MiiboChat {
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;
+        this.outputLogs = options?.outputLogs || false;
         this.uid = 'uid_' + Date.now().toString() + '_' + Math.random().toString(36).substring(2, 15);
         this.clearHistory();
     }

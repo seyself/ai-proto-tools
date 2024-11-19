@@ -38,6 +38,8 @@ export default class MiiboChat implements IChatHelper {
   private json: boolean;
   private history: ChatCompletionMessageParam[] = [];
   private uid: string;
+  private outputLogs: boolean;
+
   /**
    * ChatHelper のインスタンスを作成します。
    * @param {ChatHelperOptions} options - 設定オプション
@@ -53,6 +55,7 @@ export default class MiiboChat implements IChatHelper {
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;
+    this.outputLogs = options?.outputLogs || false;
 
     this.uid = 'uid_' + Date.now().toString() + '_' + Math.random().toString(36).substring(2, 15);
 
@@ -92,7 +95,7 @@ export default class MiiboChat implements IChatHelper {
       });
 
       const content = response?.data?.bestResponse?.utterance;
-      // console.log(response.data);
+      if (this.outputLogs || options?.outputLogs)  console.log(response.data);
       this.addUserMessage(userPrompt);
       this.addAssistantMessage(content);
       return content;

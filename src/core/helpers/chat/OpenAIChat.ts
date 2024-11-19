@@ -25,13 +25,13 @@ const openai = new OpenAI();
  */
 export default class OpenAIChat implements IChatHelper {
 
-  public static enableLog = false;
   private systemPrompt: string | null | undefined;
   readonly useModel: string;
   private maxTokens: number;
   private tools: ToolsHelper | null;
   private json: boolean;
   private history: ChatCompletionMessageParam[] = [];
+  private outputLogs: boolean;
 
   /**
    * ChatHelper のインスタンスを作成します。
@@ -48,6 +48,7 @@ export default class OpenAIChat implements IChatHelper {
     this.maxTokens = max_tokens || 4096;
     this.tools = tools || null;
     this.json = json || false;
+    this.outputLogs = options?.outputLogs || false;
 
     this.clearHistory();
   }
@@ -105,7 +106,7 @@ export default class OpenAIChat implements IChatHelper {
 
     try {
       const response = await openai.chat.completions.create(data);
-      if (OpenAIChat.enableLog) console.log('API >> response >>>', response);
+      if (this.outputLogs || options?.outputLogs) console.log('API >> response >>>', response);
       if ('choices' in response && response.choices.length > 0) {
         const content = response.choices[0]?.message?.content;
         if (content) {

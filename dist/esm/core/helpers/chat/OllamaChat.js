@@ -63,7 +63,8 @@ export default class OllamaChat {
             }
             try {
                 const response = await ollama.chat(data);
-                console.log('API >> response >>>', response);
+                if (this.outputLogs || options?.outputLogs)
+                    console.log('API >> response >>>', response);
                 if (response?.message?.content) {
                     const content = response.message.content;
                     if (content) {
@@ -140,6 +141,7 @@ export default class OllamaChat {
         this.maxTokens = max_tokens || 4096;
         this.tools = tools || null;
         this.json = json || false;
+        this.outputLogs = options?.outputLogs || false;
         this.clearHistory();
     }
     clearHistory() {

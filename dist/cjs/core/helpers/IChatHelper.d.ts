@@ -34,6 +34,7 @@ export interface ChatHelperOptions {
     max_tokens?: number;
     json?: boolean;
     tools?: ToolsHelper | null;
+    outputLogs?: boolean;
 }
 /**
  * vision メソッドで使用する画像ファイルの形式

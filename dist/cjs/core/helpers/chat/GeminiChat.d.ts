@@ -7,6 +7,7 @@ export default class GeminiChat implements IChatHelper {
     private tools;
     private json;
     private history;
+    private outputLogs;
     constructor(options?: ChatHelperOptions);
     clearHistory(): void;
     addUserMessage: (content: string) => void;

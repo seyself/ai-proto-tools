@@ -70,6 +70,7 @@ export default class GeminiChat implements IChatHelper {
   private tools: ToolsHelper | null;
   private json: boolean;
   private history: any[] = [];
+  private outputLogs: boolean;
 
   constructor(options:ChatHelperOptions = { systemPrompt: null, model: AIModel.gemini_default, max_tokens: 4096, json: false, tools: null }) {
     const { systemPrompt, model, max_tokens, json, tools } = options;
@@ -80,6 +81,7 @@ export default class GeminiChat implements IChatHelper {
     this.tools = tools || null;
     this.json = json || false;
     this.apiVersion = options?.apiVersion || null;
+    this.outputLogs = options?.outputLogs || false;
 
     this.clearHistory();
   }
@@ -137,7 +139,7 @@ export default class GeminiChat implements IChatHelper {
       const chat: any = await genModel.startChat(data);
       const result: any = await chat.sendMessage(userPrompt);
       const response: any = await result.response;
-      console.log('API >> response >>>', response);
+      if (this.outputLogs || options?.outputLogs) console.log('API >> response >>>', response);
       return response.text();
     } catch (error) {
       console.log('Error fetching data:', (error as Error).message);
