@@ -33,7 +33,7 @@ const COMMIT_MESSAGE_LANG = process.env.COMMIT_MESSAGE_LANG || 'English';
 async function generateCommitMessage() {
     try {
         const diffSummary = (0, child_process_1.execSync)('git diff').toString();
-        const agent = ChatHelper_js_1.default.Create({
+        const agent = ChatHelper_js_1.default.create({
             systemPrompt: 'Please create a commit message for the following updates.',
             model: COMMIT_MESSAGE_MODEL,
         });

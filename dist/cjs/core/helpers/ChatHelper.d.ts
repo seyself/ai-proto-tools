@@ -1,4 +1,8 @@
 import { type IChatHelper, type ChatHelperOptions } from './IChatHelper.js';
+import OpenAIChat from './chat/OpenAIChat.js';
+import ClaudeChat from './chat/ClaudeChat.js';
+import GeminiChat from './chat/GeminiChat.js';
+import OllamaChat from './chat/OllamaChat.js';
 /**
  * ChatHelper クラスは OpenAI の API を使用してチャット機能を提供します。
  * このクラスは、テキストベースの会話とビジョン（画像解析）機能をサポートし、
@@ -14,7 +18,8 @@ import { type IChatHelper, type ChatHelperOptions } from './IChatHelper.js';
 export default class ChatHelper implements IChatHelper {
     get useModel(): string;
     private chat;
-    static Create(options?: ChatHelperOptions): ChatHelper;
+    static getClient(options?: ChatHelperOptions): OpenAIChat | ClaudeChat | GeminiChat | OllamaChat;
+    static create(options?: ChatHelperOptions): ChatHelper;
     static ChatGPT(options?: ChatHelperOptions): ChatHelper;
     static Claude(options?: ChatHelperOptions): ChatHelper;
     static Gemini(options?: ChatHelperOptions): ChatHelper;

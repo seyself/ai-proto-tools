@@ -19,7 +19,7 @@ const COMMIT_MESSAGE_LANG = process.env.COMMIT_MESSAGE_LANG || 'English';
 export async function generateCommitMessage() {
     try {
         const diffSummary = execSync('git diff').toString();
-        const agent = ChatHelper.Create({
+        const agent = ChatHelper.create({
             systemPrompt: 'Please create a commit message for the following updates.',
             model: COMMIT_MESSAGE_MODEL,
         });

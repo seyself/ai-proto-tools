@@ -22,18 +22,21 @@ export default class ChatHelper {
     get useModel() {
         return this.chat?.useModel || '';
     }
-    static Create(options = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
+    static getClient(options = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         const model = options.model || AIModel.gpt_default;
         if (model.startsWith('gpt-') || model.startsWith('o1-')) {
-            return new ChatHelper(new OpenAIChat(options));
+            return new OpenAIChat(options);
         }
         else if (model.startsWith('claude-')) {
-            return new ChatHelper(new ClaudeChat(options));
+            return new ClaudeChat(options);
         }
         else if (model.startsWith('gemini-')) {
-            return new ChatHelper(new GeminiChat(options));
+            return new GeminiChat(options);
         }
-        return new ChatHelper(new OllamaChat(options));
+        return new OllamaChat(options);
+    }
+    static create(options = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
+        return new ChatHelper(ChatHelper.getClient(options));
     }
     static ChatGPT(options = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         return new ChatHelper(new OpenAIChat(options));
@@ -89,7 +92,7 @@ export default class ChatHelper {
         this.vision = async (text, files, options) => {
             return this.chat.vision(text, files, options);
         };
-        this.chat = isChatHelper(options) ? options : new OpenAIChat(options);
+        this.chat = isChatHelper(options) ? options : ChatHelper.getClient(options);
     }
     clearHistory() {
         this.chat.clearHistory();
