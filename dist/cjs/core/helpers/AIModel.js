@@ -5,7 +5,7 @@ var AIModel;
 (function (AIModel) {
     // GPT
     AIModel["gpt_default"] = "gpt-4o-mini";
-    AIModel["gpt_latest"] = "chatgpt-4o-latest";
+    AIModel["gpt_latest"] = "gpt-4o";
     AIModel["gpt_small_latest"] = "gpt-4o-mini";
     AIModel["gpt_4"] = "gpt-4";
     AIModel["gpt_4_turbo"] = "gpt-4-turbo";
@@ -13,24 +13,27 @@ var AIModel;
     AIModel["gpt_4o_mini"] = "gpt-4o-mini";
     AIModel["chatgpt_4o_latest"] = "chatgpt-4o-latest";
     AIModel["gpt_4o_realtime"] = "gpt-4o-realtime-preview";
+    AIModel["gpt_4o_audio"] = "gpt-4o-audio-preview";
     AIModel["o1"] = "o1-preview";
     AIModel["o1_mini"] = "o1-mini";
-    AIModel["tts_1"] = "tts-1";
-    AIModel["tts_1_hd"] = "tts-1-hd";
+    AIModel["tts"] = "tts-1";
+    AIModel["tts_hd"] = "tts-1-hd";
+    AIModel["wisper"] = "whisper-1";
     AIModel["text_embedding_3_large"] = "text-embedding-3-large";
     AIModel["text_embedding_3_small"] = "text-embedding-3-small";
     // Claude
     AIModel["claude_default"] = "claude-3-5-sonnet-20241022";
     AIModel["claude_latest"] = "claude-3-5-sonnet-20241022";
-    AIModel["claude_small_latest"] = "claude-3-5-sonnet-20241022";
+    AIModel["claude_small_latest"] = "claude-3-5-haiku-20241022";
     AIModel["claude_3_opus"] = "claude-3-opus-20240229";
     AIModel["claude_3_sonnet"] = "claude-3-sonnet-20240229";
     AIModel["claude_3_haiku"] = "claude-3-haiku-20240307";
+    AIModel["claude_3_5_haiku"] = "claude-3-5-haiku-20241022";
     AIModel["claude_3_5_sonnet"] = "claude-3-5-sonnet-20241022";
     // Gemini
-    AIModel["gemini_default"] = "gemini-1.5-flash-8b";
+    AIModel["gemini_default"] = "gemini-1.5-flash";
     AIModel["gemini_pro_latest"] = "gemini-1.5-pro";
-    AIModel["gemini_small_latest"] = "gemini-1.5-flash-8b";
+    AIModel["gemini_small_latest"] = "gemini-1.5-flash";
     AIModel["gemini_1_5_pro"] = "gemini-1.5-pro";
     AIModel["gemini_1_5_pro_latest"] = "gemini-1.5-pro-latest";
     AIModel["gemini_exp_1114"] = "gemini-exp-1114";
