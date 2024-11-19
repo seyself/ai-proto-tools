@@ -190,7 +190,7 @@ export default class GeminiChat implements IChatHelper {
         }
       }
 
-      const result = await visionModel.generateContent([text, ...images]);
+      const result = await visionModel.generateContent([...images, text]);
       const resultText = result.response.text();
       return resultText;
     } catch (error) {
