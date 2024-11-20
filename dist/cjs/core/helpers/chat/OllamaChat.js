@@ -81,7 +81,7 @@ class OllamaChat {
                 messages: this.history
             };
             if (json) {
-                data.response_format = { type: 'json_object' };
+                data.format = 'json';
             }
             if (tools) {
                 data.tools = tools.getDefineToolObjects();

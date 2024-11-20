@@ -99,7 +99,7 @@ export default class OllamaChat implements IChatHelper {
     };
 
     if (json) {
-      data.response_format = { type: 'json_object' };
+      data.format = 'json';
     }
 
     if (tools) {
