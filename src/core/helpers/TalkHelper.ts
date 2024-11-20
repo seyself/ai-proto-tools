@@ -18,6 +18,7 @@ interface TalkHelperOptions {
   apiKey: string;
   relayServer?: string;
   customInstructions?: string;
+  voice?: 'alloy' | 'ash' | 'ballad' | 'coral' | 'echo' | 'sage' | 'shimmer' | 'verse' | undefined;
 }
 
 interface ChunkData {
@@ -42,7 +43,8 @@ interface RealtimeEvent {
  */
 export default class TalkHelper extends EventEmitter 
 {
-  private instructions: string;
+  instructions: string;
+  voice: 'alloy' | 'ash' | 'ballad' | 'coral' | 'echo' | 'sage' | 'shimmer' | 'verse' | undefined;
   private tools: ToolsHelper;
   private apiKey: string;
   private USE_LOCAL_RELAY_SERVER_URL: string;
@@ -60,11 +62,12 @@ export default class TalkHelper extends EventEmitter
   private noiseStartTime: number | null;
   private minNoiseDuration: number;
 
-  constructor({ apiKey, relayServer='', customInstructions='' }: TalkHelperOptions) 
+  constructor({ apiKey, relayServer='', customInstructions='', voice='alloy' }: TalkHelperOptions) 
   {
     super();
 
     this.instructions = customInstructions || instructions;
+    this.voice = voice;
 
     this.tools = new ToolsHelper(false, false, []);
     // this.tools.addFunction(new YahooNews());
@@ -236,7 +239,7 @@ export default class TalkHelper extends EventEmitter
     const client = this.client;
 
     // 指示を設定
-    client.updateSession({ instructions: this.instructions });
+    client.updateSession({ instructions: this.instructions, voice: this.voice });
     // 音声認識を設定
     client.updateSession({ input_audio_transcription: { model: 'whisper-1' } });
 
@@ -320,7 +323,13 @@ export default class TalkHelper extends EventEmitter
     
     this.client.updateSession({ 
       instructions: this.instructions,
+      voice: this.voice,
     });
+  }
+
+  public setVoice(voice: 'alloy' | 'ash' | 'ballad' | 'coral' | 'echo' | 'sage' | 'shimmer' | 'verse' | undefined): void {
+    this.voice = voice;
+    this.client.updateSession({ voice });
   }
 
   /**

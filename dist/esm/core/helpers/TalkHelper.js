@@ -9,7 +9,7 @@ import ToolsHelper from './ToolsHelper.js';
  * TalkHelperクラスは、リアルタイム音声処理とクライアント通信の機能を提供します。
  */
 export default class TalkHelper extends EventEmitter {
-    constructor({ apiKey, relayServer = '', customInstructions = '' }) {
+    constructor({ apiKey, relayServer = '', customInstructions = '', voice = 'alloy' }) {
         super();
         this.onConnect = () => {
             console.log('音声出力が接続されました');
@@ -95,6 +95,7 @@ export default class TalkHelper extends EventEmitter {
             }
         };
         this.instructions = customInstructions || instructions;
+        this.voice = voice;
         this.tools = new ToolsHelper(false, false, []);
         // this.tools.addFunction(new YahooNews());
         // インスタンス変数の初期化
@@ -152,7 +153,7 @@ export default class TalkHelper extends EventEmitter {
     initializeClient() {
         const client = this.client;
         // 指示を設定
-        client.updateSession({ instructions: this.instructions });
+        client.updateSession({ instructions: this.instructions, voice: this.voice });
         // 音声認識を設定
         client.updateSession({ input_audio_transcription: { model: 'whisper-1' } });
         this.tools.applyTalkTools(this);
@@ -220,7 +221,12 @@ export default class TalkHelper extends EventEmitter {
         console.log('applyTalkTools');
         this.client.updateSession({
             instructions: this.instructions,
+            voice: this.voice,
         });
+    }
+    setVoice(voice) {
+        this.voice = voice;
+        this.client.updateSession({ voice });
     }
     /**
      * 音声入力デバイスを変更します

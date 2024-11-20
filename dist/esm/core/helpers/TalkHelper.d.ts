@@ -3,12 +3,14 @@ interface TalkHelperOptions {
     apiKey: string;
     relayServer?: string;
     customInstructions?: string;
+    voice?: 'alloy' | 'ash' | 'ballad' | 'coral' | 'echo' | 'sage' | 'shimmer' | 'verse' | undefined;
 }
 /**
  * TalkHelperクラスは、リアルタイム音声処理とクライアント通信の機能を提供します。
  */
 export default class TalkHelper extends EventEmitter {
-    private instructions;
+    instructions: string;
+    voice: 'alloy' | 'ash' | 'ballad' | 'coral' | 'echo' | 'sage' | 'shimmer' | 'verse' | undefined;
     private tools;
     private apiKey;
     private USE_LOCAL_RELAY_SERVER_URL;
@@ -25,7 +27,7 @@ export default class TalkHelper extends EventEmitter {
     private silenceThreshold;
     private noiseStartTime;
     private minNoiseDuration;
-    constructor({ apiKey, relayServer, customInstructions }: TalkHelperOptions);
+    constructor({ apiKey, relayServer, customInstructions, voice }: TalkHelperOptions);
     private setupWavStreamPlayerListeners;
     private onConnect;
     private onDisconnect;
@@ -48,6 +50,7 @@ export default class TalkHelper extends EventEmitter {
      * @param {string} newInstructions 新しいインストラクション
      */
     updateInstructions(newInstructions: string): void;
+    setVoice(voice: 'alloy' | 'ash' | 'ballad' | 'coral' | 'echo' | 'sage' | 'shimmer' | 'verse' | undefined): void;
     /**
      * 音声入力デバイスを変更します
      * @param {string} deviceId オーディオ入力デバイスのID
