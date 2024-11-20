@@ -1,7 +1,7 @@
 import ToolsFunction, { type CallFunctionArgs, type DefineToolObject } from '../functions/ToolsFunction.js';
 
 /** AI Tools用の機能を管理・実行するためのヘルパークラス */
-export default class ToolsHelper {
+export class ToolsHelper {
   /** 登録された機能のリスト */
   functions: ToolsFunction[];
   /** ファイル検索機能の有効フラグ */
@@ -112,3 +112,5 @@ export default class ToolsHelper {
     });
   }
 }
+
+export default ToolsHelper;

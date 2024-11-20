@@ -1,6 +1,5 @@
 // Helpers
 export { AIModel } from './helpers/AIModel.js';
-export { default as ToolsHelper } from './helpers/ToolsHelper.js';
 export * from './helpers/ToolsHelper.js';
 // export { default as TalkHelper } from './helpers/TalkHelper';
 export { default as ChatHelper } from './helpers/ChatHelper.js';

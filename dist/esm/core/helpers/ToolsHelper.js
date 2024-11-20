@@ -1,5 +1,5 @@
 /** AI Tools用の機能を管理・実行するためのヘルパークラス */
-export default class ToolsHelper {
+export class ToolsHelper {
     /**
      * ToolsHelperのコンストラクタ
      * @param fileSearch - ファイル検索機能を有効にするかどうか
@@ -98,3 +98,4 @@ export default class ToolsHelper {
         this.codeInterpreter = codeInterpreter;
     }
 }
+export default ToolsHelper;
