@@ -1,6 +1,6 @@
 {
   "name": "@seyself/ai-proto-tools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "type": "module",
   "main": "./dist/cjs/core/index.js",
@@ -34,7 +34,7 @@
     "commit": "tsx src/vc/commit.ts",
     "push": "tsx src/vc/push.ts",
     "discard": "tsx src/vc/discard.ts",
-    "deploy": "npm run build && npm run commit && npm run push"
+    "deploy": "node version_incr.js && npm run build && npm run commit && npm run push"
   },
   "keywords": [],
   "author": "",
