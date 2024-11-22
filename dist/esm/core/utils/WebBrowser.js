@@ -44,10 +44,10 @@ export default class WebBrowser {
                 const textOnly = options?.textOnly || false;
                 const width = options?.width || 750;
                 const height = options?.height || 1334;
-                const timeout = options?.timeout || 30000;
+                const timeout = options?.timeout || 10000;
                 const userAgent = options?.userAgent || 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
                 const waitForSelector = options?.waitForSelector || '';
-                const waitTime = options?.waitTime || 3000;
+                const waitTime = options?.waitTime || 1000;
                 const result = {};
                 const launchOptions = {
                     headless: true,
