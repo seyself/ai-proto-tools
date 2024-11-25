@@ -48,6 +48,8 @@ export interface DefineToolObject {
  * ツール定義オブジェクトの関数定義インターフェース
  */
 export interface DefineToolObjectFunction {
+    /** オブジェクトのタイプ ('function') */
+    type: string;
     /** 関数の説明 */
     description: string;
     /** 関数名 */

@@ -12,6 +12,7 @@ export default class ToolsFunction {
             return {
                 type: 'function',
                 function: {
+                    type: 'function',
                     description: this.description,
                     name: this.functionName,
                     parameters: {
