@@ -32,7 +32,7 @@ export default class OpenAIChat implements IChatHelper {
   private json: boolean;
   private history: ChatCompletionMessageParam[] = [];
   private outputLogs: boolean;
-
+  private options: ChatHelperOptions;
   /**
    * ChatHelper のインスタンスを作成します。
    * @param {ChatHelperOptions} options - 設定オプション
@@ -49,6 +49,8 @@ export default class OpenAIChat implements IChatHelper {
     this.tools = tools || null;
     this.json = json || false;
     this.outputLogs = options?.outputLogs || false;
+
+    this.options = options;
 
     this.clearHistory();
   }
@@ -95,6 +97,21 @@ export default class OpenAIChat implements IChatHelper {
       model: model || this.useModel,
       messages: this.history
     };
+
+    if (this.options) {
+      if (this.options.seed !== undefined) data.seed = this.options.seed;
+      if (this.options.top_p !== undefined) data.top_p = this.options.top_p;
+      if (this.options.frequency_penalty !== undefined) data.frequency_penalty = this.options.frequency_penalty;
+      if (this.options.presence_penalty !== undefined) data.presence_penalty = this.options.presence_penalty;
+      if (this.options.modalities !== undefined) data.modalities = this.options.modalities as OpenAI.Chat.ChatCompletionModality[];
+    }
+    if (options) {
+      if (options.seed !== undefined) data.seed = options.seed;
+      if (options.top_p !== undefined) data.top_p = options.top_p;
+      if (options.frequency_penalty !== undefined) data.frequency_penalty = options.frequency_penalty;
+      if (options.presence_penalty !== undefined) data.presence_penalty = options.presence_penalty;
+      if (options.modalities !== undefined) data.modalities = options.modalities as OpenAI.Chat.ChatCompletionModality[];
+    }
 
     if (json) {
       data.response_format = { type: 'json_object' };
@@ -175,11 +192,27 @@ export default class OpenAIChat implements IChatHelper {
     this.history.push({ role: "user", content: reqContent });
 
     try {
-      const visionResponse = await openai.chat.completions.create({
+      const data: OpenAI.Chat.ChatCompletionCreateParams = {
         model: model || this.useModel || AIModel.gpt_default,
         max_tokens: this.maxTokens,
         messages: this.history,
-      });
+      };
+
+      if (this.options) {
+        if (this.options.seed !== undefined) data.seed = this.options.seed;
+        if (this.options.top_p !== undefined) data.top_p = this.options.top_p;
+        if (this.options.frequency_penalty !== undefined) data.frequency_penalty = this.options.frequency_penalty;
+        if (this.options.presence_penalty !== undefined) data.presence_penalty = this.options.presence_penalty;
+        if (this.options.modalities !== undefined) data.modalities = this.options.modalities as OpenAI.Chat.ChatCompletionModality[];
+      }
+      if (options) {
+        if (options.seed !== undefined) data.seed = options.seed;
+        if (options.top_p !== undefined) data.top_p = options.top_p;
+        if (options.frequency_penalty !== undefined) data.frequency_penalty = options.frequency_penalty;
+        if (options.presence_penalty !== undefined) data.presence_penalty = options.presence_penalty;
+        if (options.modalities !== undefined) data.modalities = options.modalities as OpenAI.Chat.ChatCompletionModality[];
+      }
+      const visionResponse = await openai.chat.completions.create(data);
 
       const content = visionResponse.choices[0]?.message?.content;
       this.history.push({ role: "assistant", content });

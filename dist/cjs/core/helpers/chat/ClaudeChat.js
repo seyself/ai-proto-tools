@@ -51,6 +51,14 @@ class ClaudeChat {
                 max_tokens: max_tokens || this.maxTokens,
                 system: systemPrompt || this.systemPrompt || undefined,
             };
+            if (options) {
+                // if (options.seed !== undefined) data.seed = options.seed;
+                if (options.top_p !== undefined)
+                    data.top_p = options.top_p;
+                // if (options.frequency_penalty !== undefined) data.frequency_penalty = options.frequency_penalty;
+                // if (options.presence_penalty !== undefined) data.presence_penalty = options.presence_penalty;
+                // if (options.modalities !== undefined) data.modalities = options.modalities;
+            }
             // if (json) {
             //   data.response_format = { type: 'json_object' };
             // }
@@ -112,7 +120,7 @@ class ClaudeChat {
                 }
             }
             try {
-                const visionResponse = await anthropic.messages.create({
+                const data = {
                     model: model || this.useModel || AIModel_js_1.AIModel.claude_default,
                     max_tokens: this.maxTokens,
                     messages: [
@@ -121,7 +129,16 @@ class ClaudeChat {
                             content: reqContent,
                         }
                     ],
-                });
+                };
+                if (options) {
+                    // if (options.seed !== undefined) data.seed = options.seed;
+                    if (options.top_p !== undefined)
+                        data.top_p = options.top_p;
+                    // if (options.frequency_penalty !== undefined) data.frequency_penalty = options.frequency_penalty;
+                    // if (options.presence_penalty !== undefined) data.presence_penalty = options.presence_penalty;
+                    // if (options.modalities !== undefined) data.modalities = options.modalities;
+                }
+                const visionResponse = await anthropic.messages.create(data);
                 if ('content' in visionResponse && visionResponse.content.length > 0) {
                     const content = visionResponse.content[0];
                     if (content && 'text' in content) {

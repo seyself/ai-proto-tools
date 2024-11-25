@@ -19,6 +19,7 @@ export default class OpenAIChat implements IChatHelper {
     private json;
     private history;
     private outputLogs;
+    private options;
     /**
      * ChatHelper のインスタンスを作成します。
      * @param {ChatHelperOptions} options - 設定オプション

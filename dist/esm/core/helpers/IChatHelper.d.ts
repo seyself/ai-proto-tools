@@ -32,6 +32,12 @@ export interface ChatHelperOptions {
     model?: string | null;
     apiVersion?: string | null;
     max_tokens?: number;
+    seed?: number;
+    temperature?: number;
+    top_p?: number;
+    frequency_penalty?: number;
+    presence_penalty?: number;
+    modalities?: string[];
     json?: boolean;
     tools?: ToolsHelper | null;
     outputLogs?: boolean;
