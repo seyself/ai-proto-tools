@@ -369,7 +369,7 @@ class AssistantHelper {
                         const content = data.content[0];
                         if ('text' in content && content.text.value) {
                             const contentText = content.text.value;
-                            const refs = this.referenceLinks?.map(item => `- <${item.link}|${item.title}>`).join('\n');
+                            const refs = this.referenceLinks ? (Array.isArray(this.referenceLinks) ? this.referenceLinks.map(item => `- <${item.link}|${item.title}>`).join('\n') : this.referenceLinks) : null;
                             const responseText = refs ? `${contentText}\n\n*参考リンク*: \n${refs}` : contentText;
                             const annotationFiles = await this.saveAnnotationFiles(content.text.annotations);
                             return { status: 'completed', text: responseText, files: annotationFiles };

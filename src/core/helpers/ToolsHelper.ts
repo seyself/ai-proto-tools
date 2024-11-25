@@ -1,4 +1,4 @@
-import ToolsFunction, { type CallFunctionArgs, type DefineToolObject } from '../functions/ToolsFunction.js';
+import ToolsFunction, { type CallFunctionArgs, type CallFunctionResult, type DefineToolObject } from '../functions/ToolsFunction.js';
 
 /** AI Tools用の機能を管理・実行するためのヘルパークラス */
 export class ToolsHelper {
@@ -43,7 +43,7 @@ export class ToolsHelper {
    * @param params - 実行時のパラメータ
    * @returns 機能の実行結果
    */
-  callFunction = async (functionName: string, options: CallFunctionArgs): Promise<any> => {
+  callFunction = async (functionName: string, options: CallFunctionArgs): Promise<CallFunctionResult | undefined> => {
     try {
       for (const func of this.functions) {
         if (func.match(functionName, options.args)) {
@@ -57,11 +57,16 @@ export class ToolsHelper {
     // キャンセル時の処理
     try {
       if (options.onCanceled) {
-        return options.onCanceled('');
+        options.onCanceled('');
       }
     } catch (e) {
       console.error(e);
     }
+    return {
+      call_id: options.call_id,
+      args: options.args,
+      text: 'canceled'
+    };
   }
 
   /**

@@ -1,4 +1,4 @@
-import ToolsFunction, { type CallFunctionArgs, type DefineToolObject } from '../functions/ToolsFunction.js';
+import ToolsFunction, { type CallFunctionArgs, type CallFunctionResult, type DefineToolObject } from '../functions/ToolsFunction.js';
 /** AI Tools用の機能を管理・実行するためのヘルパークラス */
 export declare class ToolsHelper {
     /** 登録された機能のリスト */
@@ -30,7 +30,7 @@ export declare class ToolsHelper {
      * @param params - 実行時のパラメータ
      * @returns 機能の実行結果
      */
-    callFunction: (functionName: string, options: CallFunctionArgs) => Promise<any>;
+    callFunction: (functionName: string, options: CallFunctionArgs) => Promise<CallFunctionResult | undefined>;
     /**
      * 登録された全機能の定義オブジェクトを取得する
      * @returns 機能定義オブジェクトの配列

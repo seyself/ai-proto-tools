@@ -41,12 +41,17 @@ export class ToolsHelper {
             // キャンセル時の処理
             try {
                 if (options.onCanceled) {
-                    return options.onCanceled('');
+                    options.onCanceled('');
                 }
             }
             catch (e) {
                 console.error(e);
             }
+            return {
+                call_id: options.call_id,
+                args: options.args,
+                text: 'canceled'
+            };
         };
         /**
          * 登録された全機能の定義オブジェクトを取得する
