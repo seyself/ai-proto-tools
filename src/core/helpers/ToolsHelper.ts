@@ -43,11 +43,11 @@ export class ToolsHelper {
    * @param params - 実行時のパラメータ
    * @returns 機能の実行結果
    */
-  callFunction = async (functionName: string, { thread_id, run_id, call_id, args, onProgress, onCanceled }: CallFunctionArgs): Promise<any> => {
+  callFunction = async (functionName: string, options: CallFunctionArgs): Promise<any> => {
     try {
       for (const func of this.functions) {
-        if (func.match(functionName, args)) {
-          return await func.callFunction({ thread_id, run_id, call_id, args, onProgress, onCanceled });
+        if (func.match(functionName, options.args)) {
+          return await func.callFunction(options);
         }
       }
     } catch (e) {
@@ -56,7 +56,9 @@ export class ToolsHelper {
 
     // キャンセル時の処理
     try {
-      return onCanceled('');
+      if (options.onCanceled) {
+        return options.onCanceled('');
+      }
     } catch (e) {
       console.error(e);
     }

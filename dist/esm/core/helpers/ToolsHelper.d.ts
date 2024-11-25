@@ -30,7 +30,7 @@ export declare class ToolsHelper {
      * @param params - 実行時のパラメータ
      * @returns 機能の実行結果
      */
-    callFunction: (functionName: string, { thread_id, run_id, call_id, args, onProgress, onCanceled }: CallFunctionArgs) => Promise<any>;
+    callFunction: (functionName: string, options: CallFunctionArgs) => Promise<any>;
     /**
      * 登録された全機能の定義オブジェクトを取得する
      * @returns 機能定義オブジェクトの配列

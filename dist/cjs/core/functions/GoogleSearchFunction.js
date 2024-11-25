@@ -41,7 +41,9 @@ class GoogleSearchFunction extends ToolsFunction_js_1.default {
             const title = item?.title ?? '';
             console.log('check web page >>>', link);
             try {
-                await onProgress(`:thinking_face: Googleで検索中... ${j + 1}/${len2}`);
+                if (onProgress) {
+                    await onProgress(`:thinking_face: Googleで検索中... ${j + 1}/${len2}`);
+                }
             }
             catch (error) {
                 console.error('Progress update failed:', error);
@@ -61,7 +63,9 @@ class GoogleSearchFunction extends ToolsFunction_js_1.default {
             }
         }
         try {
-            await onProgress(':thinking_face: 検索結果をまとめ中...（情報が多いと5分くらいかかるかも）');
+            if (onProgress) {
+                await onProgress(':thinking_face: 検索結果をまとめ中...（情報が多いと5分くらいかかるかも）');
+            }
         }
         catch (error) {
             console.error('Final progress update failed:', error);

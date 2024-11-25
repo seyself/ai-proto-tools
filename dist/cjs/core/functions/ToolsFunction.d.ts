@@ -3,26 +3,26 @@
  */
 export interface CallFunctionArgs {
     /** スレッドID */
-    thread_id: string;
+    thread_id?: string;
     /** 実行ID */
-    run_id: string;
+    run_id?: string;
     /** 呼び出しID */
     call_id: string;
     /** 関数に渡される引数 */
     args: any;
     /** 進捗状況を通知するコールバック関数 */
-    onProgress: (message: string) => void;
+    onProgress?: (message: string) => void;
     /** キャンセル時のコールバック関数 */
-    onCanceled: (message: string) => void;
+    onCanceled?: (message: string) => void;
 }
 /**
  * 関数呼び出し結果のインターフェース
  */
 export interface CallFunctionResult {
     /** スレッドID */
-    thread_id: string;
+    thread_id?: string;
     /** 実行ID */
-    run_id: string;
+    run_id?: string;
     /** 呼び出しID */
     call_id: string;
     /** 関数に渡された引数 */
@@ -30,7 +30,7 @@ export interface CallFunctionResult {
     /** 実行結果のテキスト */
     text: string;
     /** 関連リンク情報 */
-    link: {
+    link?: {
         title: string;
         link: string;
     }[] | string | null;
@@ -49,7 +49,7 @@ export interface DefineToolObject {
  */
 export interface DefineToolObjectFunction {
     /** オブジェクトのタイプ ('function') */
-    type: string;
+    type?: string;
     /** 関数の説明 */
     description: string;
     /** 関数名 */
