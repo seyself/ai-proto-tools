@@ -27,6 +27,23 @@ class ToolsFunction {
             };
         };
         /**
+         * ツール定義オブジェクトを取得する
+         * @returns {DefineToolObjectFunction} ツール定義オブジェクト
+         */
+        this.getDefineToolFunction = () => {
+            return {
+                type: 'function',
+                description: this.description,
+                name: this.functionName,
+                parameters: {
+                    type: 'object',
+                    properties: this.properties || {},
+                    required: this.required || [],
+                },
+                // strict: this.strict,
+            };
+        };
+        /**
          * 関数名と引数が一致するかチェックする
          * @param funcName - チェックする関数名
          * @param args - チェックする引数

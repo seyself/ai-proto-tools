@@ -85,6 +85,11 @@ export default abstract class ToolsFunction {
      */
     getDefineToolObject: () => DefineToolObject;
     /**
+     * ツール定義オブジェクトを取得する
+     * @returns {DefineToolObjectFunction} ツール定義オブジェクト
+     */
+    getDefineToolFunction: () => DefineToolObjectFunction;
+    /**
      * 関数名と引数が一致するかチェックする
      * @param funcName - チェックする関数名
      * @param args - チェックする引数
