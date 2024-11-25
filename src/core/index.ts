@@ -19,7 +19,13 @@ export { default as StyleBertVIT2 } from './helpers/speech/StyleBertVIT2.js';
 export { default as VoicevoxSpeech } from './helpers/speech/VoicevoxSpeech.js';
 
 // Functions
-export { default as ToolsFunction, type CallFunctionArgs, type CallFunctionResult, type DefineToolObject } from './functions/ToolsFunction.js';
+export { default as ToolsFunction, 
+  type CallFunctionArgs, 
+  type CallFunctionResult, 
+  type DefineToolObject, 
+  type DefineToolObjectFunction, 
+  type DefineToolObjectInput 
+} from './functions/ToolsFunction.js';
 export { default as GoogleSearchFunction } from './functions/GoogleSearchFunction.js';
 
 // Storages

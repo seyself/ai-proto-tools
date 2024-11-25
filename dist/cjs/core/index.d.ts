@@ -12,7 +12,7 @@ export { default as OllamaChat } from './helpers/chat/OllamaChat.js';
 export { default as OpenAISpeech } from './helpers/speech/OpenAISpeech.js';
 export { default as StyleBertVIT2 } from './helpers/speech/StyleBertVIT2.js';
 export { default as VoicevoxSpeech } from './helpers/speech/VoicevoxSpeech.js';
-export { default as ToolsFunction, type CallFunctionArgs, type CallFunctionResult, type DefineToolObject } from './functions/ToolsFunction.js';
+export { default as ToolsFunction, type CallFunctionArgs, type CallFunctionResult, type DefineToolObject, type DefineToolObjectFunction, type DefineToolObjectInput } from './functions/ToolsFunction.js';
 export { default as GoogleSearchFunction } from './functions/GoogleSearchFunction.js';
 export { default as VectorSearchStorage, vectorizeText } from './storages/VectorSearchStorage.js';
 export { default as KeyValueStorage } from './storages/KeyValueStorage.js';
