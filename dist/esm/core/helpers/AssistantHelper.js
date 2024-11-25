@@ -293,7 +293,7 @@ export default class AssistantHelper {
                 onCanceled: async (message) => await this.cancelAssistant(thread_id, run_id),
             });
             this.referenceLinks = result?.link || null;
-            this.setToolOutput(thread_id, run_id, call_id, result?.text);
+            this.setToolOutput(thread_id, run_id, call_id, result?.result);
         };
         this.setToolOutput = async (thread_id, run_id, call_id, content) => {
             const NoData = '該当する情報が見つかりませんでした。';

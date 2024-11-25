@@ -65,7 +65,8 @@ export class ToolsHelper {
     return {
       call_id: options.call_id,
       args: options.args,
-      text: 'canceled'
+      result: '',
+      canceled: true,
     };
   }
 
@@ -115,7 +116,7 @@ export class ToolsHelper {
         onCanceled: (message: string) => {}
       });
       console.log('result >>>', result);
-      return result?.text || 'データが見つかりません。';
+      return result?.result || 'データが見つかりません。';
     });
   }
 }

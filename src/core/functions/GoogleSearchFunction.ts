@@ -101,7 +101,7 @@ export default class GoogleSearchFunction extends ToolsFunction {
       run_id,
       call_id,
       args: args,
-      text: searchResultText,
+      result: searchResultText,
       link: links,
     };
   }

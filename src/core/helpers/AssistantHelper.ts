@@ -413,7 +413,7 @@ export default class AssistantHelper {
       onCanceled: async (message) => await this.cancelAssistant(thread_id, run_id),
     });
     this.referenceLinks = result?.link || null;
-    this.setToolOutput(thread_id, run_id, call_id, result?.text);
+    this.setToolOutput(thread_id, run_id, call_id, result?.result);
   };
 
   private setToolOutput = async (thread_id: string, run_id: string, call_id: string, content: string | undefined): Promise<void> => {

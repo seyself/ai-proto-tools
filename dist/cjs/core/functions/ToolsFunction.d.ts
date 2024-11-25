@@ -28,7 +28,10 @@ export interface CallFunctionResult {
     /** 関数に渡された引数 */
     args: any;
     /** 実行結果のテキスト */
-    text: string;
+    result: string;
+    success?: boolean;
+    canceled?: boolean;
+    hasError?: boolean;
     /** 関連リンク情報 */
     link?: {
         title: string;

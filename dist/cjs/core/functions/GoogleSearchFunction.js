@@ -78,7 +78,7 @@ class GoogleSearchFunction extends ToolsFunction_js_1.default {
             run_id,
             call_id,
             args: args,
-            text: searchResultText,
+            result: searchResultText,
             link: links,
         };
     }
