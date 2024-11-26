@@ -11,7 +11,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-let accessToken: string | undefined = process.env.FEEDLY_ACCESS_TOKEN;
 const refreshToken: string | undefined = process.env.FEEDLY_REFRESH_TOKEN;
 const streamId: string | undefined = process.env.FEEDLY_STREAM_ID;
 
@@ -19,17 +18,32 @@ const _fingerprintFile = './fingerprint.txt';
 const _tokenFile = './feedly_access_token.txt';
 
 
-if (fs.existsSync(_fingerprintFile) === false) {
-  fs.writeFileSync(_fingerprintFile, '', 'utf8');
-}
+class FeedlyUtility {
+  static fingerprints: string[] = [];
+  static accessToken: string | undefined = process.env.FEEDLY_ACCESS_TOKEN;
+  static _initialized: boolean = false;
 
-if (fs.existsSync(_tokenFile)) {
-  accessToken = fs.readFileSync(_tokenFile, 'utf8');
-} else {
-  fs.writeFileSync(_tokenFile, accessToken || '', 'utf8');
-}
+  static init = () => {
+    if (FeedlyUtility._initialized) return;
+    FeedlyUtility._initialized = true;
 
-const fingerprints = (fs.readFileSync(_fingerprintFile, 'utf8') || '').split('\n');
+    if (fs.existsSync(_fingerprintFile) === false) {
+      fs.writeFileSync(_fingerprintFile, '', 'utf8');
+    }
+    FeedlyUtility.fingerprints = (fs.readFileSync(_fingerprintFile, 'utf8') || '').split('\n');
+    
+    if (fs.existsSync(_tokenFile)) {
+      FeedlyUtility.accessToken = fs.readFileSync(_tokenFile, 'utf8');
+    } else {
+      fs.writeFileSync(_tokenFile, FeedlyUtility.accessToken || '', 'utf8');
+    }
+  }
+
+  static updateToken = async (newToken: string) => {
+    fs.writeFileSync(_tokenFile, newToken, 'utf8');
+    FeedlyUtility.accessToken = newToken;
+  }
+}
 
 export interface FeedlyEntry {
   id: string;
@@ -70,6 +84,8 @@ export default class Feedly
 
   constructor()
   {
+    FeedlyUtility.init();
+    
     this.hasError = false;
     this.error = null;
     this.markIds = [];
@@ -93,7 +109,7 @@ export default class Feedly
 
     const headers = {
       'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${accessToken}`
+      // 'Authorization': `Bearer ${FeedlyUtility.accessToken}`
     };
 
     try 
@@ -107,8 +123,7 @@ export default class Feedly
       console.log('Feedly:: Redresh Access Token:: ' + newToken);
       if (newToken)
       {
-        fs.writeFileSync('./feedly_access_token.txt', newToken, 'utf8');
-        accessToken = newToken;
+        FeedlyUtility.updateToken(newToken);
       }
     }
     catch (error) 
@@ -138,7 +153,7 @@ export default class Feedly
     {
       const response = await axios.get(apiUrl, {
         headers: {
-          'Authorization': `Bearer ${accessToken}`
+          'Authorization': `Bearer ${FeedlyUtility.accessToken}`
         }
       });
 
@@ -169,13 +184,13 @@ export default class Feedly
           continue;
         }
 
-        if (fingerprints.indexOf(item.fingerprint) >= 0)
+        if (FeedlyUtility.fingerprints.indexOf(item.fingerprint) >= 0)
         {
           markIds.push(item.id);
           continue;
         }
 
-        fingerprints.push(item.fingerprint);
+        FeedlyUtility.fingerprints.push(item.fingerprint);
 
         const data = {
           id: item.id,
@@ -250,7 +265,7 @@ export default class Feedly
       await this.tokenRefresh();
     }
 
-    fs.writeFileSync(_fingerprintFile, fingerprints.join('\n'), 'utf8');
+    fs.writeFileSync(_fingerprintFile, FeedlyUtility.fingerprints.join('\n'), 'utf8');
   }
 
 
@@ -262,7 +277,7 @@ export default class Feedly
     const apiUrl = `https://cloud.feedly.com/v3/markers`;
 
     const headers = {
-      'Authorization': `Bearer ${accessToken}`
+      'Authorization': `Bearer ${FeedlyUtility.accessToken}`
     }
 
     const params = {

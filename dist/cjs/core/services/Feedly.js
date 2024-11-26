@@ -27,6 +27,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 // Access Token
 // https://feedly.com/v3/auth/dev
@@ -35,21 +36,35 @@ const axios_1 = __importDefault(require("axios"));
 const cheerio = __importStar(require("cheerio"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-let accessToken = process.env.FEEDLY_ACCESS_TOKEN;
 const refreshToken = process.env.FEEDLY_REFRESH_TOKEN;
 const streamId = process.env.FEEDLY_STREAM_ID;
 const _fingerprintFile = './fingerprint.txt';
 const _tokenFile = './feedly_access_token.txt';
-if (fs_1.default.existsSync(_fingerprintFile) === false) {
-    fs_1.default.writeFileSync(_fingerprintFile, '', 'utf8');
+class FeedlyUtility {
 }
-if (fs_1.default.existsSync(_tokenFile)) {
-    accessToken = fs_1.default.readFileSync(_tokenFile, 'utf8');
-}
-else {
-    fs_1.default.writeFileSync(_tokenFile, accessToken || '', 'utf8');
-}
-const fingerprints = (fs_1.default.readFileSync(_fingerprintFile, 'utf8') || '').split('\n');
+_a = FeedlyUtility;
+FeedlyUtility.fingerprints = [];
+FeedlyUtility.accessToken = process.env.FEEDLY_ACCESS_TOKEN;
+FeedlyUtility._initialized = false;
+FeedlyUtility.init = () => {
+    if (_a._initialized)
+        return;
+    _a._initialized = true;
+    if (fs_1.default.existsSync(_fingerprintFile) === false) {
+        fs_1.default.writeFileSync(_fingerprintFile, '', 'utf8');
+    }
+    _a.fingerprints = (fs_1.default.readFileSync(_fingerprintFile, 'utf8') || '').split('\n');
+    if (fs_1.default.existsSync(_tokenFile)) {
+        _a.accessToken = fs_1.default.readFileSync(_tokenFile, 'utf8');
+    }
+    else {
+        fs_1.default.writeFileSync(_tokenFile, _a.accessToken || '', 'utf8');
+    }
+};
+FeedlyUtility.updateToken = async (newToken) => {
+    fs_1.default.writeFileSync(_tokenFile, newToken, 'utf8');
+    _a.accessToken = newToken;
+};
 class Feedly {
     constructor() {
         this.tokenRefresh = async () => {
@@ -64,7 +79,7 @@ class Feedly {
             };
             const headers = {
                 'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${accessToken}`
+                // 'Authorization': `Bearer ${FeedlyUtility.accessToken}`
             };
             try {
                 const response = await axios_1.default.post(apiUrl, params, { headers });
@@ -73,8 +88,7 @@ class Feedly {
                 const newToken = response.data.access_token;
                 console.log('Feedly:: Redresh Access Token:: ' + newToken);
                 if (newToken) {
-                    fs_1.default.writeFileSync('./feedly_access_token.txt', newToken, 'utf8');
-                    accessToken = newToken;
+                    FeedlyUtility.updateToken(newToken);
                 }
             }
             catch (error) {
@@ -95,7 +109,7 @@ class Feedly {
             try {
                 const response = await axios_1.default.get(apiUrl, {
                     headers: {
-                        'Authorization': `Bearer ${accessToken}`
+                        'Authorization': `Bearer ${FeedlyUtility.accessToken}`
                     }
                 });
                 this.response = response;
@@ -120,11 +134,11 @@ class Feedly {
                         markIds.push(item.id);
                         continue;
                     }
-                    if (fingerprints.indexOf(item.fingerprint) >= 0) {
+                    if (FeedlyUtility.fingerprints.indexOf(item.fingerprint) >= 0) {
                         markIds.push(item.id);
                         continue;
                     }
-                    fingerprints.push(item.fingerprint);
+                    FeedlyUtility.fingerprints.push(item.fingerprint);
                     const data = {
                         id: item.id,
                         fingerprint: item.fingerprint,
@@ -180,14 +194,14 @@ class Feedly {
             if (this.hasError) {
                 await this.tokenRefresh();
             }
-            fs_1.default.writeFileSync(_fingerprintFile, fingerprints.join('\n'), 'utf8');
+            fs_1.default.writeFileSync(_fingerprintFile, FeedlyUtility.fingerprints.join('\n'), 'utf8');
         };
         this.markAsRead = async (entryIds) => {
             this.hasError = false;
             this.error = null;
             const apiUrl = `https://cloud.feedly.com/v3/markers`;
             const headers = {
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${FeedlyUtility.accessToken}`
             };
             const params = {
                 action: 'markAsRead',
@@ -209,6 +223,7 @@ class Feedly {
                 console.log('Error fetching data:', error.message);
             }
         };
+        FeedlyUtility.init();
         this.hasError = false;
         this.error = null;
         this.markIds = [];
