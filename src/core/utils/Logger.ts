@@ -11,6 +11,7 @@ export class Logger {
   private static instance: Logger;
 
   public currentLogLevel: LogLevel = LogLevel.LOG;
+  public lastLog: string = '';
   public filter: string = '';
   public history: string[] = [];
   public maxHistory: number = 20;
@@ -30,6 +31,7 @@ export class Logger {
   }
 
   private addHistory(message: string): void {
+    this.lastLog = message;
     this.history.unshift(message);
     if (this.history.length > this.maxHistory) {
       this.history.pop();
@@ -43,9 +45,8 @@ export class Logger {
   }
 
   private formatMessage(level: string, message: string, ...args: any[]): string {
-    // const timestamp = new Date().toISOString();
-    // return `[${timestamp}] [${level}] ${message} ${args.join(' ')}`;
-    return `[${level}] ${message}`;
+    const timestamp = new Date().toISOString().replace('T', ' ').replace('Z', '');
+    return `[${timestamp}] [${level}] ${message}`;
   }
 
   system(message: string, ...args: any[]): void {

@@ -9,6 +9,7 @@ export declare enum LogLevel {
 export declare class Logger {
     private static instance;
     currentLogLevel: LogLevel;
+    lastLog: string;
     filter: string;
     history: string[];
     maxHistory: number;

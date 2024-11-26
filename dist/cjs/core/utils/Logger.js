@@ -13,6 +13,7 @@ var LogLevel;
 class Logger {
     constructor() {
         this.currentLogLevel = LogLevel.LOG;
+        this.lastLog = '';
         this.filter = '';
         this.history = [];
         this.maxHistory = 20;
@@ -27,6 +28,7 @@ class Logger {
         this.currentLogLevel = level;
     }
     addHistory(message) {
+        this.lastLog = message;
         this.history.unshift(message);
         if (this.history.length > this.maxHistory) {
             this.history.pop();
@@ -38,9 +40,8 @@ class Logger {
         return enableLevel && enableFilter;
     }
     formatMessage(level, message, ...args) {
-        // const timestamp = new Date().toISOString();
-        // return `[${timestamp}] [${level}] ${message} ${args.join(' ')}`;
-        return `[${level}] ${message}`;
+        const timestamp = new Date().toISOString().replace('T', ' ').replace('Z', '');
+        return `[${timestamp}] [${level}] ${message}`;
     }
     system(message, ...args) {
         if (this.shouldLog(LogLevel.SYSTEM, message)) {
