@@ -9,10 +9,11 @@ export enum LogLevel {
 
 export class Logger {
   private static instance: Logger;
-  private currentLogLevel: LogLevel = LogLevel.LOG;
-  private filter: string = '';
-  private history: string[] = [];
-  private maxHistory: number = 20;
+
+  public currentLogLevel: LogLevel = LogLevel.LOG;
+  public filter: string = '';
+  public history: string[] = [];
+  public maxHistory: number = 20;
 
 
   private constructor() {}

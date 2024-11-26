@@ -8,10 +8,10 @@ export declare enum LogLevel {
 }
 export declare class Logger {
     private static instance;
-    private currentLogLevel;
-    private filter;
-    private history;
-    private maxHistory;
+    currentLogLevel: LogLevel;
+    filter: string;
+    history: string[];
+    maxHistory: number;
     private constructor();
     static getInstance(): Logger;
     setLogLevel(level: LogLevel): void;
