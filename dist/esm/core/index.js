@@ -29,4 +29,5 @@ export { default as AzureSpeechRecognizer } from './services/AzureSpeechRecogniz
 export { default as WebBrowser } from './utils/WebBrowser.js';
 export { readFileToBase64 } from './utils/readFileToBase64.js';
 export { writeAudioBuffer } from './utils/writeAudioBuffer.js';
+export { default as logger, Logger, LogLevel } from './utils/Logger.js';
 export * from '../vc/index.js';

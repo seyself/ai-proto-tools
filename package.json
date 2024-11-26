@@ -1,6 +1,6 @@
 {
   "name": "@seyself/ai-proto-tools",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "",
   "type": "module",
   "main": "./dist/cjs/core/index.js",
