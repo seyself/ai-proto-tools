@@ -13,10 +13,12 @@ export declare class Logger {
     filter: string;
     history: string[];
     maxHistory: number;
+    private callback;
     private constructor();
     static getInstance(): Logger;
     setLogLevel(level: LogLevel): void;
     private addHistory;
+    listen(callback: (message: string) => void): void;
     private shouldLog;
     private formatMessage;
     system(message: string, ...args: any[]): void;

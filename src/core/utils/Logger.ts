@@ -16,6 +16,7 @@ export class Logger {
   public history: string[] = [];
   public maxHistory: number = 20;
 
+  private callback: ((message: string) => void) | null = null;
 
   private constructor() {}
 
@@ -36,6 +37,13 @@ export class Logger {
     if (this.history.length > this.maxHistory) {
       this.history.pop();
     }
+    if (this.callback) {
+      this.callback(message);
+    }
+  }
+
+  listen(callback: (message: string) => void): void {
+    this.callback = callback;
   }
 
   private shouldLog(level: LogLevel, message: string): boolean {

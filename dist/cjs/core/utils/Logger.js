@@ -17,6 +17,7 @@ class Logger {
         this.filter = '';
         this.history = [];
         this.maxHistory = 20;
+        this.callback = null;
     }
     static getInstance() {
         if (!Logger.instance) {
@@ -33,6 +34,12 @@ class Logger {
         if (this.history.length > this.maxHistory) {
             this.history.pop();
         }
+        if (this.callback) {
+            this.callback(message);
+        }
+    }
+    listen(callback) {
+        this.callback = callback;
     }
     shouldLog(level, message) {
         const enableLevel = level >= this.currentLogLevel;
