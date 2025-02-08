@@ -24,7 +24,10 @@ export default class ChatHelper {
     }
     static getClient(options = { systemPrompt: null, model: AIModel.gpt_default, max_tokens: 4096, json: false, tools: null }) {
         const model = options.model || AIModel.gpt_default;
-        if (model.startsWith('gpt-') || model.startsWith('o1-')) {
+        if (model.startsWith('chatgpt-')
+            || model.startsWith('gpt-')
+            || model.startsWith('o1-')
+            || model.startsWith('o3-')) {
             return new OpenAIChat(options);
         }
         else if (model.startsWith('claude-')) {

@@ -10,8 +10,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 const refreshToken = process.env.FEEDLY_REFRESH_TOKEN;
 const streamId = process.env.FEEDLY_STREAM_ID;
-const _fingerprintFile = './fingerprint.txt';
-const _tokenFile = './feedly_access_token.txt';
+const _fingerprintFile = './feedly/fingerprint.txt';
+const _tokenFile = './feedly/feedly_access_token.txt';
 class FeedlyUtility {
 }
 _a = FeedlyUtility;
