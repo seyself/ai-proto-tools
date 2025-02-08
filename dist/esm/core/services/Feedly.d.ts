@@ -34,7 +34,7 @@ export interface FeedlyResponse {
 export default class Feedly {
     hasError: boolean;
     error: Error | null;
-    private markIds;
+    markIds: string[];
     entries: FeedlyEntry[];
     response: any;
     constructor();

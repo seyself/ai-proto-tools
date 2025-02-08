@@ -78,7 +78,7 @@ export default class Feedly
 {
   public hasError: boolean;
   public error: Error | null;
-  private markIds: string[];
+  public markIds: string[];
   public entries: FeedlyEntry[];
   public response: any;
 
